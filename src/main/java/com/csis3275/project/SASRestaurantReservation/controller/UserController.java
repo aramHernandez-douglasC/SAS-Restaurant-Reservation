@@ -2,6 +2,7 @@ package com.csis3275.project.SASRestaurantReservation.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import com.csis3275.project.SASRestaurantReservation.model.User;
 @RestController
 public class UserController {
 
+	@Autowired
 	private UserRepository repository;
 
 	// get all users
@@ -32,7 +34,7 @@ public class UserController {
 		User us = repository.save(user);
 		System.out.print("User created with id "+ us.getId() );
 		}catch(Exception e) {
-			throw e.getCause();
+			throw new Exception(e);
 		}
 		return ResponseEntity.ok().body("User created ");
 	}
