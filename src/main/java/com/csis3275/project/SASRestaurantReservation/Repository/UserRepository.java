@@ -7,5 +7,9 @@ import com.csis3275.project.SASRestaurantReservation.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+	
+	User findByUsername(String username);
+	
+	User findByEmail(String email);
 
 }
