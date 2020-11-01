@@ -35,3 +35,10 @@ input:focus{
   background: transparent;
   color: #F2E9DC;
 }
+
+a{
+  color: #808F85;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
