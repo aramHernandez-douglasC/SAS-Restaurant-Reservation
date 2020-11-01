@@ -1,26 +1,37 @@
 package com.csis3275.project.SASRestaurantReservation.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "users")
+
 public class User {
 
 	@Id
+	@Column(name = "user_id")
 	@GeneratedValue
 	private int id;
 
-	private String username;
+	@Column(name = "user_name")
+	private String userName;
 
-	private String first_name;
+	@Column(name = "first_name")
+	private String firstName;
 
-	private String last_name;
+	@Column(name = "last_name")
+	private String lastName;
 
+	@Column(name = "email")
 	private String email;
 
+	@Column(name = "type")
 	private String type;
 
+	@Column(name = "password")
 	private String password;
 
 	public User() {
@@ -29,9 +40,9 @@ public class User {
 
 	public User(String username, String first_name, String last_name, String email, String type, String password) {
 		super();
-		this.username = username;
-		this.first_name = first_name;
-		this.last_name = last_name;
+		this.userName = username;
+		this.firstName = first_name;
+		this.lastName = last_name;
 		this.email = email;
 		this.type = type;
 		this.password = password;
@@ -45,28 +56,28 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.userName = username;
 	}
 
-	public String getFirst_name() {
-		return first_name;
+	public String getFirstName() {
+		return firstName;
 	}
 
 	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+		this.firstName = first_name;
 	}
 
 	public String getLast_name() {
-		return last_name;
+		return lastName;
 	}
 
 	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+		this.lastName = last_name;
 	}
 
 	public String getEmail() {
@@ -91,6 +102,11 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", type=" + type + "]";
 	}
 
 }
