@@ -1,3 +1,4 @@
+import { SeatingService } from './service/seating.service';
 import { AuthenticationService } from './service/authentication.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -24,7 +25,7 @@ import { SeatIconComponent } from './components/seat-icon/seat-icon.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [AuthenticationService],
+  providers: [AuthenticationService, SeatingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

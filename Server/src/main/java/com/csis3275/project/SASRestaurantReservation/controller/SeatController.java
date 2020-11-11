@@ -30,7 +30,7 @@ public class SeatController {
 	 * Get all seats
 	 **/
 
-	@GetMapping(value = "/seats", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/seats")
 	public Iterable<Seat> getAllSeats() {
 		return repository.findAll();
 	}
