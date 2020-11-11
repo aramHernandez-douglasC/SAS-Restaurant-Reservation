@@ -49,32 +49,32 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
     this.canvas.height = 500;
 
     this.seats.forEach(s => {
-      let color: string;
-      
-      switch(s.cleanStatus){
-        case "clean":          
-          color = "rgba(0, 255, 92, 0.64)";
+
+
+      switch (s.cleanStatus) {
+        case "clean":
+          s.color = "rgba(0, 255, 92, 0.64)";
           break;
-  
-        case "dirty":                   
-          color = "rgba(255, 255, 92, 0.64)";
+
+        case "dirty":
+          s.color = "rgba(255, 255, 92, 0.64)";
           break;
-  
-  
-        case "occupied":         
-          color = "rgba(255, 0, 92, 0.64)";
+
+
+        case "occupied":
+          s.color = "rgba(255, 0, 92, 0.64)";
           break;
-          
+
       }
 
-      this.draw(s.xPos, s.yPos, color);
+      this.draw(s.xPos, s.yPos, s.color);
       this.canvas.addEventListener("click", (event) => {
 
         const rect = this.canvas.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
-        this.selected = this.clickItem(x,s.xPos,y,s.yPos)
-        if (this.selected){
+        this.selected = this.clickItem(x, s.xPos, y, s.yPos)
+        if (this.selected) {
           console.log(s);
         }
 
@@ -82,35 +82,36 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
 
 
     });
-    
+
 
 
 
   }
 
   draw(xPos, yPos, color) {
-    this.ctx.rect(xPos, yPos, 80, 80);
+    this.ctx.beginPath();
+    this.ctx.arc(xPos, yPos, 30, 0, Math.PI * 2, false);
     this.ctx.fillStyle = color;
     this.ctx.fill();
 
   }
 
-  clickItem(xMouse, xPos,yMouse,yPos) {
+  clickItem(xMouse, xPos, yMouse, yPos) {
     //Pitagoran Theory
     const distance =
-      Math.sqrt(((xMouse-xPos) * (xMouse-xPos)) + ((yMouse-yPos) * (yMouse-yPos)));
+      Math.sqrt(((xMouse - xPos) * (xMouse - xPos)) + ((yMouse - yPos) * (yMouse - yPos)));
 
-     
-      if (distance < 80){
-        console.log(distance);
-        return true;
-      }
-      return false;
+
+    if (distance < 80) {
+      console.log(distance);
+      return true;
+    }
+    return false;
   }
 
   update(xPos, yPos, cleanStatus) {
     var color: string;
-    
+
     switch (cleanStatus) {
       case "clean":
         console.log(cleanStatus);
@@ -131,7 +132,7 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
         console.log(cleanStatus);
         color = "rgba(255, 0, 92, 0.64)";
         break;
-        
+
 
 
     }
