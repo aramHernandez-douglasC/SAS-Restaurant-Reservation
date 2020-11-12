@@ -3,11 +3,41 @@
         [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
         [mode]="(isHandset$ | async) ? 'over' : 'side'"
         [opened]="(isHandset$ | async) === false">
-      <mat-toolbar>Menu</mat-toolbar>
+      <mat-toolbar>
+        <h1> Restaurant name </h1>
+        
+        
+      </mat-toolbar>
       <mat-nav-list>
-        <a mat-list-item href="#">Link 1</a>
-        <a mat-list-item href="#">Link 2</a>
-        <a mat-list-item href="#">Link 3</a>
+          <div *ngIf = "selectedSeat != null; else noSelectedBlock">
+
+            <h2>Seat Selected</h2>
+            <label>Seat Number:</label>
+            <p> {{selectedSeat.id}} </p>
+            <br>
+
+            <label>Capacity:</label>
+            <p> {{selectedSeat.capacity}} </p>
+            <br>
+
+            <label>Current status:</label>
+            <p> {{selectedSeat.cleanStatus}} </p>
+            <br>
+
+            <label>Server:</label>
+            <p> {{selectedSeat.serverId}} </p>
+            <br>       
+            
+            <button id= "updateStatus">Update Status</button>
+          </div>
+
+          <ng-template #noSelectedBlock>
+            <h1> Please select a seat</h1>
+          </ng-template>
+          
+          
+
+          
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

@@ -27,6 +27,9 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
   selected: boolean;
 
   seats: Seat[];
+  selectedSeat: Seat;
+  
+  _RADIUS: number = 40;
 
   constructor(
     private _ac: ActivatedRoute,
@@ -73,12 +76,16 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
         const rect = this.canvas.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
-        this.selected = this.clickItem(x, s.xPos, y, s.yPos)
-        if (this.selected) {
-          console.log(s);
+        
+        if (this.clickItem(x, s.xPos, y, s.yPos)) {         
+          this.selectedSeat = s;
+          console.log(this.selectedSeat);
+          
         }
-
-      })
+        console.log (this.selected);
+        
+        
+      });
 
 
     });
@@ -90,7 +97,7 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
 
   draw(xPos, yPos, color) {
     this.ctx.beginPath();
-    this.ctx.arc(xPos, yPos, 30, 0, Math.PI * 2, false);
+    this.ctx.arc(xPos, yPos, this._RADIUS, 0, Math.PI * 2, false);
     this.ctx.fillStyle = color;
     this.ctx.fill();
 
@@ -100,13 +107,11 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
     //Pitagoran Theory
     const distance =
       Math.sqrt(((xMouse - xPos) * (xMouse - xPos)) + ((yMouse - yPos) * (yMouse - yPos)));
-
-
-    if (distance < 80) {
+    if (distance < this._RADIUS) {
       console.log(distance);
-      return true;
+      return this.selected = true;
     }
-    return false;
+    return this.selected = false;
   }
 
   update(xPos, yPos, cleanStatus) {
