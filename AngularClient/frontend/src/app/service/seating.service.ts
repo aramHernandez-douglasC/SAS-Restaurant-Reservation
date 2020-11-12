@@ -16,13 +16,13 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class SeatingService {
-  GET_ALL_SEATS = "http://localhost:8080/seats";
-  DELETE_SEAT_BY_ID = "http://localhost:8080/delete-seat";
-  ADD_SEAT = "http://localhost:8080/newSeat";
+  GET_ALL_SEATS = 'http://localhost:8080/seats';
+  DELETE_SEAT_BY_ID = 'http://localhost:8080/delete-seat';
+  ADD_SEAT = 'http://localhost:8080/newSeat';
 
   constructor(private http: HttpClient) { }
 
-  requestAllSeats() : Observable<any>{
+  requestAllSeats(): Observable<any>{
     return this.http.get(this.GET_ALL_SEATS);
 
   }

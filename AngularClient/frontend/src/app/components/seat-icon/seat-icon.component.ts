@@ -19,7 +19,8 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
       map(result => result.matches),
       shareReplay()
     );
-
+  role: string;
+  name: string;
 
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
@@ -29,16 +30,19 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
   seats: Seat[];
 
   constructor(
-    private _ac: ActivatedRoute,
-    private breakpointObserver: BreakpointObserver
+    private ac: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver,
+    private route: ActivatedRoute
   ) {
-    this.seats = this._ac.snapshot.data.seat
-
+    this.seats = this.ac.snapshot.data.seat;
   }
 
 
   ngOnInit(): void {
-
+    this.role = this.ac.snapshot.paramMap.get('role');
+    this.name = this.ac.snapshot.paramMap.get('name');
+    console.log(this.role);
+    console.log(this.name);
   }
   ngAfterViewInit() {
     console.log(this.seats);

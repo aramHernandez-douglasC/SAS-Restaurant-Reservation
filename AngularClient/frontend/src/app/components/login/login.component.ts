@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../service/authentication.service';
 import {User} from '../../model/User';
 import {Router} from '@angular/router';
@@ -57,8 +57,15 @@ export class LoginComponent implements OnInit {
     };
     this.service.authenticate(body).subscribe(data => {
       console.log(data);
+      this.user = data;
+      this.router.navigate(['/seat', this.user.type, this.user.userName]);
     });
-    this.router.navigate(['/']);
+
+    // this.storage.clear('token');
+    // this.storage.store('token', this.userRole);
+    // this.data = this.storage.retrieve('token');
+    // console.log(this.data);
+
   }
 
   onRegister(): void{
@@ -70,7 +77,7 @@ export class LoginComponent implements OnInit {
     this.user.email = this.registerForm.value.email;
     this.user.firstName = this.registerForm.value.firstname;
     this.user.lastName = this.registerForm.value.lastname;
-    this.user.username = this.registerForm.value.username;
+    this.user.userName = this.registerForm.value.username;
     this.user.password = this.registerForm.value.password;
     this.user.type = this.isAdmin ? 'Admin' : 'Employee';
 
@@ -78,7 +85,7 @@ export class LoginComponent implements OnInit {
       .subscribe((response) => {
         console.log(response);
       });
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
     // console.log(body);
 
@@ -98,7 +105,7 @@ export class LoginComponent implements OnInit {
       .subscribe((response) => {
         console.log(response);
       });
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
   passwordConfirming(): boolean {
     if (this.resetForm.value.password === this.resetForm.value.confirm_password) {
