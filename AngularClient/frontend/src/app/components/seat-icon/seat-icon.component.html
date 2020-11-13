@@ -38,13 +38,13 @@
           <form [formGroup]="updateStatusForm" (ngSubmit)="submitSeatUpdate()">
             <div class="form-group form-check">
 
-              <!--BAD CODE >:(-->
+              
               <select formControlName="status">
                 <option [ngValue]="null" disabled > {{selectedSeat.cleanStatus}}</option>
                 <option *ngFor="let s of statusOptions" [ngValue]="s">{{s}}</option>
               </select>
               <br>
-              <button type="submit" class="btn custom-button">Update status</button>
+              <button type="submit" class="btn">Update</button>
             </div>
           </form>
         </div>

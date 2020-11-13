@@ -22,13 +22,31 @@ public class UserController {
 	@Autowired
 	private UserRepository repository;
 
-	// get all users
+	/**
+	 * GET ALL USERS
+	 * 
+	 * This method returns a list of all the users stored on the database with their
+	 * respective properties so they can be displayed on the front-end
+	 * 
+	 * @return a list of type iterable containing all the users.
+	 * 
+	 *  @author 
+	 **/
 	@GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<User> getAllUsers() {
 		return repository.findAll();
 
 	}
-	// login functionality
+	/**
+	 * AUTHENTICATE USER
+	 * 
+	 * This method checks that user exists on the database and also that user and password 
+	 * match to the ones stored on the back-end.
+	 * 
+	 * @return ResponseEntity: User 
+	 * 
+	 *  @author Sean G
+	 **/
 	@PostMapping("/login")
 	public ResponseEntity<User> authenticateUser(@RequestParam String email, @RequestParam String password)
 			throws Throwable {
@@ -45,7 +63,18 @@ public class UserController {
 		
 	}
 
-	// register functionality
+	/**
+	 * REGISTER METHOD
+	 * 
+	 * This method helps to validate the user input and 
+	 * store the user on the database with the specified parameters
+	 * 
+	 * @param User user : expects a user object from the client
+	 * @return ResponseEntity :User  Returns the response that will be sent to the client
+	 * @author Aram Hernandez 300285533
+	 * 
+	 * **/
+	
 	@PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> save(@RequestBody User user) throws Throwable {
 		try {
@@ -62,9 +91,12 @@ public class UserController {
 	}
 
 	/**
+	 * PASSWORD RESET METHOD
 	 * 
-	 * @param 
-	 * @return 
+	 * This method helps the user restore the password in case of losing it 
+	 * 
+	 * @param email :String, password :String ; The request from the client
+	 * @return ResponseEntity : which response will be sent to the client
 	 * 
 	 * @author Saran Jha 
 	 * **/
