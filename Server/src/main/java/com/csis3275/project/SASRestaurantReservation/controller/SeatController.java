@@ -30,14 +30,14 @@ public class SeatController {
 	private Seat seat;
 
 	/**
-	 * GET ALL SEATS 
+	 * GET ALL SEATS
 	 * 
 	 * This method returns a list of all the seats stored on the database with their
 	 * respective properties so they can be displayed on the front-end
 	 * 
 	 * @return a list of type iterable containing all the seats.
 	 * 
-	 *  @author Aram Hernandez 300285533
+	 * @author Aram Hernandez 300285533
 	 **/
 
 	@GetMapping(value = "/seats")
@@ -59,18 +59,18 @@ public class SeatController {
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 	}
-	
-	
+
 	/**
 	 * DELETE SEAT
 	 * 
-	 * This method looks for the seat id which you want to delete from the database depending on 
-	 * the ID specified by the front-end user, it also first looks if the id selected exists on 
-	 * the database, and if not it throws a exception 
-	 * @throws e: An exception in case there is something wrong with the input or it doesn't
-	 * 				exists
+	 * This method looks for the seat id which you want to delete from the database
+	 * depending on the ID specified by the front-end user, it also first looks if
+	 * the id selected exists on the database, and if not it throws a exception
+	 * 
+	 * @throws e: An exception in case there is something wrong with the input or it
+	 *            doesn't exists
 	 * @author Aram Hernandez 300285533
-	 *  **/
+	 **/
 	@DeleteMapping(value = "/delete-seat")
 	public void deleteSeat(@RequestParam int seatId) throws Throwable {
 		try {
@@ -83,35 +83,70 @@ public class SeatController {
 		}
 
 	}
+
 	/**
+	 * 
 	 * UPDATE SEAT STATUS
 	 * 
-	 * This method looks for the seat_id stored on the database and stores it 
-	 * on the seat model defined before. Then it gets the status of the current selected 
-	 * seat and updates it depending on what the user selected using the CRUD 
+	 * This method looks for the seat_id stored on the database and stores it on the
+	 * seat model defined before. Then it gets the status of the current selected
+	 * seat and updates it depending on what the user selected using the CRUD
 	 * repository on the SeatRepository object
 	 * 
-	 *   @param seatId: The seat Id which you want to update 
-	 *   @param status: the status in which you want the seat to become.
-	 *   
-	 *   @author Aram Hernandez 300285533
-	 * **/
-	@PutMapping (value = "/update-seat-status")
-	public ResponseEntity<Seat> updateSeatStatus(@RequestParam int seatId, @RequestParam String status) throws Throwable{
-		System.out.println("id =" + seatId + "status: "+ status);
+	 * @param seatId: The seat Id which you want to update
+	 * @param status: the status in which you want the seat to become.
+	 * 
+	 * @author Aram Hernandez 300285533
+	 **/
+	@PutMapping(value = "/update-seat-status")
+	public ResponseEntity<Seat> updateSeatStatus(@RequestParam int seatId, @RequestParam String status)
+			throws Throwable {
+		System.out.println("id =" + seatId + "status: " + status);
 		try {
 			this.seat = repository.findById(seatId).get();
-			
+
 			if (this.seat != null) {
 				this.seat.setCleanStatus(status);
 				repository.save(this.seat);
 				System.out.println("Seat updated successfully: " + this.seat.getId());
-				return new ResponseEntity<Seat>(this.seat,HttpStatus.OK);
+				return new ResponseEntity<Seat>(this.seat, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
+	/**
+	 * UPDATE SEAT (ADMIN)
+	 * 
+	 * This method takes a whole seat object in with updated values, it then finds
+	 * the seat in the database that has a corresponding id to the one it has
+	 * receieved in parameter. it then sets the current seat to the newly added seat
+	 * attributes from the parameter object. Once the updated values are added, the
+	 * seat gets updated in the database using the CRUD operations from the
+	 * repository.
+	 * 
+	 * @param Seat seat : the object with updated seat values
+	 * 
+	 * @author Sean Gaudette 300283112
+	 **/
+	
+	@PutMapping(value = "/updateSeat", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Seat> updateSeat(@RequestBody Seat seat1) throws Throwable {
+		try {
+
+			if (seat1 != null) {
+				this.seat = seat1;
+				repository.save(this.seat);
+				System.out.println("User Updated!");
+				System.out.print("Seat updated successfully: " + this.seat.getId());
+			}
+
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 	}
 
 }

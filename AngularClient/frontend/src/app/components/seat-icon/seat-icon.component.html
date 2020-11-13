@@ -1,68 +1,92 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>
-      <h1> Restaurant name </h1>
-    </mat-toolbar>
+    <mat-toolbar>Admin: "Admin1"</mat-toolbar>
     <mat-nav-list>
-      <div *ngIf="selectedSeat != null; else noSelectedBlock">
+      <mat-sidenav-content>
+        <mat-toolbar color="primary">
+          <h2>Welcome</h2>
+          <div *ngIf="!isAdmin ; then EmployeeBlock ; else AdminBlock ">
 
-        <h2>Seat Selected</h2>
-        <label>Seat Number:</label>
-        <p> {{selectedSeat.id}} </p>
-        <br>
-
-        <label>Capacity:</label>
-        <p> {{selectedSeat.capacity}} </p>
-        <br>
-
-        <div>
-          <label>Current status:</label>
-          <p *ngIf="!updateRequest ; else updateForm"> {{selectedSeat.cleanStatus}} </p>
-          <br>
+        </mat-toolbar>
+        <div id="main" role="main">
+          <canvas id="respondCanvas">
+          </canvas>
         </div>
+      </mat-sidenav-content>
+</mat-sidenav-container>
+</mat-nav-list>
 
-        <label>Server:</label>
-        <p> {{selectedSeat.serverId}} </p>
+</mat-sidenav-container>
+
+
+
+
+
+  </mat-nav-list>
+  </mat-sidenav>
+
+
+  <!--Admin nav-->
+  <ng-template #AdminBlock>
+    <p>&nbsp;Table Number</p>
+    <p>&nbsp;&nbsp;<input type="text" id="id" name="id"></p>
+    <p>&nbsp;Capacity</p>
+    <p>&nbsp;&nbsp;<input type="text" id="capacity" name="capacity"></p>
+    <p>&nbsp;Clean Status</p>
+    <p>&nbsp;&nbsp;<input type="text" id="cleanStatus" name="cleanStatus"></p>
+    <p>&nbsp;X Position</p>
+    <p>&nbsp;&nbsp;<input type="text" id="xPos" name="xPos"></p>
+    <p>&nbsp;Y Position</p>
+    <p>&nbsp;&nbsp;<input type="text" id="yPos" name="yPos"></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button">Add New</button>&nbsp;&nbsp;<button type="button">Update</button>
+    </p>
+  </ng-template>
+
+
+  <!--Employee Nav-->
+  <ng-template #EmployeeBlock>
+    <div *ngIf="selectedSeat != null; else noSelectedBlock">
+      <h2>Seat Selected</h2>
+      <label>Seat Number:</label>
+      <p> {{selectedSeat.id}} </p>
+      <br>
+
+      <label>Capacity:</label>
+      <p> {{selectedSeat.capacity}} </p>
+      <br>
+
+      <div>
+        <label>Current status:</label>
+        <p *ngIf="!updateRequest ; else updateForm"> {{selectedSeat.cleanStatus}} </p>
         <br>
-
-        <button (click)="updateRequestMethod()">Update Status</button>
       </div>
 
-      <ng-template #noSelectedBlock>
-        <h1> Please select a seat</h1>
-      </ng-template>
+      <label>Server:</label>
+      <p> {{selectedSeat.serverId}} </p>
+      <br>
 
-      <ng-template #updateForm>
-        <div>
-          <form [formGroup]="updateStatusForm" (ngSubmit)="submitSeatUpdate()">
-            <div class="form-group form-check">
+      <button (click)="updateRequestMethod()">Update Status</button>
+    </div>
+  </ng-template>
 
-              
-              <select formControlName="status">
-                <option [ngValue]="null" disabled > {{selectedSeat.cleanStatus}}</option>
-                <option *ngFor="let s of statusOptions" [ngValue]="s">{{s}}</option>
-              </select>
-              <br>
-              <button type="submit" class="btn">Update</button>
-            </div>
-          </form>
+  <ng-template #noSelectedBlock>
+    <h1> Please select a seat</h1>
+  </ng-template>
+
+  <ng-template #updateForm>
+    <div>
+      <form [formGroup]="updateStatusForm" (ngSubmit)="submitSeatUpdate()">
+        <div class="form-group form-check">
+
+
+          <select formControlName="status">
+            <option [ngValue]="null" disabled> {{selectedSeat.cleanStatus}}</option>
+            <option *ngFor="let s of statusOptions" [ngValue]="s">{{s}}</option>
+          </select>
+          <br>
+          <button type="submit" class="btn">Update</button>
         </div>
-      </ng-template>
-
-
-
-
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <h2>Welcome</h2>
-    </mat-toolbar>
-    <div id="main" role="main">
-      <canvas id="respondCanvas" >
-          
-      </canvas>
-  </div> 
-  </mat-sidenav-content>
-</mat-sidenav-container>
+      </form>
+    </div>
+  </ng-template>

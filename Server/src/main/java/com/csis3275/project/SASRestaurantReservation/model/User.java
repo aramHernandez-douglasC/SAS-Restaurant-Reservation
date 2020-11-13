@@ -108,5 +108,16 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", type=" + type + "]";
 	}
+	
+	public String createFullName() {
+		String fullname = this.firstName + this.lastName;
+		return fullname;
+	}
+	public boolean checkIfAdmin() {
+		if(this.getType() == "Admin") {
+			return true;
+		}return false;
+		
+	}
 
 }

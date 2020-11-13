@@ -22,6 +22,7 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
     );
 
   //Canvas Variables
+  isAdmin: boolean;
   role: string;
   name: string;
   canvas: HTMLCanvasElement;
@@ -86,8 +87,11 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
 
     this.role = this.ac.snapshot.paramMap.get('role');
     this.name = this.ac.snapshot.paramMap.get('name');
-    console.log(this.role);
-    console.log(this.name);
+
+    if(this.role.toLowerCase() == "admin"){
+      this.isAdmin == true;
+    }
+    
   }
 
   /**
