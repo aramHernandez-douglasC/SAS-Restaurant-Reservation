@@ -61,7 +61,14 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 	}
 
-	// reset password functionality
+	/**
+	 * Resetkjdjajdf
+	 * jdksjdkjd
+	 * @param 
+	 * @return 
+	 * 
+	 * @author Saran Jha 
+	 * **/
 	@PostMapping(value = "/reset", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<User> resetPassword(@RequestParam String email, @RequestParam String password)

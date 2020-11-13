@@ -1,53 +1,63 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport
-        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-        [mode]="(isHandset$ | async) ? 'over' : 'side'"
-        [opened]="(isHandset$ | async) === false">
-      <mat-toolbar>
-        <h1> Restaurant name </h1>
-        
-        
-      </mat-toolbar>
-      <mat-nav-list>
-          <div *ngIf = "selectedSeat != null; else noSelectedBlock">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>
+      <h1> Restaurant name </h1>
+    </mat-toolbar>
+    <mat-nav-list>
+      <div *ngIf="selectedSeat != null; else noSelectedBlock">
 
-            <h2>Seat Selected</h2>
-            <label>Seat Number:</label>
-            <p> {{selectedSeat.id}} </p>
-            <br>
+        <h2>Seat Selected</h2>
+        <label>Seat Number:</label>
+        <p> {{selectedSeat.id}} </p>
+        <br>
 
-            <label>Capacity:</label>
-            <p> {{selectedSeat.capacity}} </p>
-            <br>
+        <label>Capacity:</label>
+        <p> {{selectedSeat.capacity}} </p>
+        <br>
 
-            <label>Current status:</label>
-            <p> {{selectedSeat.cleanStatus}} </p>
-            <br>
+        <div>
+          <label>Current status:</label>
+          <p *ngIf="!updateRequest ; else updateForm"> {{selectedSeat.cleanStatus}} </p>
+          <br>
+        </div>
 
-            <label>Server:</label>
-            <p> {{selectedSeat.serverId}} </p>
-            <br>       
-            
-            <button id= "updateStatus">Update Status</button>
-          </div>
+        <label>Server:</label>
+        <p> {{selectedSeat.serverId}} </p>
+        <br>
 
-          <ng-template #noSelectedBlock>
-            <h1> Please select a seat</h1>
-          </ng-template>
-          
-          
+        <button (click)="updateRequestMethod()">Update Status</button>
+      </div>
 
-          
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <mat-toolbar color="primary">
-        
-      </mat-toolbar>
-      <canvas></canvas>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  
+      <ng-template #noSelectedBlock>
+        <h1> Please select a seat</h1>
+      </ng-template>
+
+      <ng-template #updateForm>
+        <div>
+          <form [formGroup]="updateStatusForm" (ngSubmit)="submitSeatUpdate()">
+            <div class="form-group form-check">
+
+              <!--BAD CODE >:(-->
+              <select formControlName="status">
+                <option *ngFor="let s of statusOptions" [ngValue]="s">{{s}}</option>
+              </select>
+              <br>
+              <button type="submit" class="btn custom-button">Update status</button>
+            </div>
+          </form>
+        </div>
+      </ng-template>
 
 
 
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+
+    </mat-toolbar>
+    <canvas></canvas>
+  </mat-sidenav-content>
+</mat-sidenav-container>
