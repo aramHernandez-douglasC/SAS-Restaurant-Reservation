@@ -1,16 +1,8 @@
 export class Seat {
-
-    id: Number;
+    id: number;
     xPos: number;
     yPos: number;
-    color: string
-    capacity: Number;
-    cleanStatus: String;
-    serverId: Number;
-    orders: Object;
-
-    
-   
-
-
-} 
+    color: string;
+    capacity: number;
+    cleanStatus: string;
+}

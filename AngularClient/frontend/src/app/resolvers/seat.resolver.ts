@@ -8,7 +8,6 @@ import { SeatingService } from '../service/seating.service';
 })
 
 export class SeatResolver implements Resolve<Observable<any>>{
-
     constructor(private api: SeatingService){}
     resolve(): Observable<any>{
         return this.api.requestAllSeats();

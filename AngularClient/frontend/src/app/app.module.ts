@@ -19,6 +19,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import { WelcomeUserComponent } from './components/welcomeuser/welcome-user.component';
+import { MenuComponent } from './components/menu/menu.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTableModule} from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +34,7 @@ import { WelcomeUserComponent } from './components/welcomeuser/welcome-user.comp
     LoginComponent,
     SeatIconComponent,
     WelcomeUserComponent,
+    MenuComponent,
   ],
   imports: [
     HttpClientModule,
@@ -42,7 +50,12 @@ import { WelcomeUserComponent } from './components/welcomeuser/welcome-user.comp
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule
   ],
   providers: [AuthenticationService, SeatingService],
   bootstrap: [AppComponent]

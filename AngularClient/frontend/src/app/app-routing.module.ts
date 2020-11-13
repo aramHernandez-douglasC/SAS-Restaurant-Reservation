@@ -4,6 +4,7 @@ import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import {WelcomeUserComponent} from './components/welcomeuser/welcome-user.component';
+import {MenuComponent} from './components/menu/menu.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
       seat : SeatResolver
     }
   },
+  { path: 'menu', component: MenuComponent },
   {path: 'welcome', component: WelcomeUserComponent},
   { path: '**', component: WelcomeUserComponent },
 ];

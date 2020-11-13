@@ -30,8 +30,8 @@ public class Seat {
 	@Column (name = "cleanStatus")	
 	private String cleanStatus;	
 	
-	@Column(name= "serverId")
-	private String serverId;
+//	@Column(name= "serverId")
+//	private String serverId;
 
 	public int getId() {
 		return id;
@@ -73,13 +73,13 @@ public class Seat {
 		this.cleanStatus = cleanStatus;
 	}
 
-	public String getServerId() {
-		return serverId;
-	}
-
-	public void setServerId(String serverId) {
-		this.serverId = serverId;
-	}
+//	public String getServerId() {
+//		return serverId;
+//	}
+//
+//	public void setServerId(String serverId) {
+//		this.serverId = serverId;
+//	}
 	
 	
 	
