@@ -31,8 +31,8 @@ public class Seat {
 	private String cleanStatus;
 	
 	
-	@ManyToOne
-	private User serverId;
+	@Column(name = "serverId")
+	private String serverId;
 
 	public int getId() {
 		return id;
@@ -74,11 +74,11 @@ public class Seat {
 		this.cleanStatus = cleanStatus;
 	}
 
-	public User getServerId() {
+	public String getServerId() {
 		return serverId;
 	}
 
-	public void setServerId(User serverId) {
+	public void setServerId(String serverId) {
 		this.serverId = serverId;
 	}
 	

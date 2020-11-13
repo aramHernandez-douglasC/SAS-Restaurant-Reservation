@@ -3,15 +3,27 @@
         [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
         [mode]="(isHandset$ | async) ? 'over' : 'side'"
         [opened]="(isHandset$ | async) === false">
-      <mat-toolbar>Menu</mat-toolbar>
+      <mat-toolbar>Admin: "Admin1"</mat-toolbar>
       <mat-nav-list>
-        <a mat-list-item href="#">Link 1</a>
+        <!-- <a mat-list-item href="#">Link 1</a>
+
         <a mat-list-item href="#">Link 2</a>
-        <a mat-list-item href="#">Link 3</a>
+        <a mat-list-item href="#">Link 3</a> -->
+        <p>&nbsp;Table Number</p>
+        <p>&nbsp;&nbsp;<input type="text" id="id" name="id"></p>
+        <p>&nbsp;Capacity</p>
+        <p>&nbsp;&nbsp;<input type="text" id="capacity" name="capacity"></p>
+        <p>&nbsp;Clean Status</p>
+        <p>&nbsp;&nbsp;<input type="text" id="cleanStatus" name="cleanStatus"></p>
+        <p>&nbsp;X Position</p>
+        <p>&nbsp;&nbsp;<input type="text" id="xPos" name="xPos"></p>
+        <p>&nbsp;Y Position</p>
+        <p>&nbsp;&nbsp;<input type="text" id="yPos" name="yPos"></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button">Add New</button>&nbsp;&nbsp;<button type="button">Update</button></p>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <mat-toolbar color="primary">
+      <mat-toolbar color="accent">
         
       </mat-toolbar>
       <canvas></canvas>
