@@ -25,6 +25,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTableModule} from '@angular/material/table';
+import { ErrorComponent } from './components/error/error.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {MatTableModule} from '@angular/material/table';
     SeatIconComponent,
     WelcomeUserComponent,
     MenuComponent,
+    ErrorComponent,
   ],
   imports: [
     HttpClientModule,
