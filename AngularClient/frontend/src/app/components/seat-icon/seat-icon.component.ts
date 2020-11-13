@@ -24,7 +24,8 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
   //Canvas Variables
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
-  width:number = 700;
+  container: HTMLDivElement;  
+  width:number = 800;
   length: number = 500;
 
   //------HTML DOM 
@@ -95,9 +96,18 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
     this.canvas = document.querySelector('canvas') as
       HTMLCanvasElement;
     this.ctx = this.canvas.getContext("2d");
+    this.container = this.canvas.parentElement as HTMLDivElement;
     this.canvas.width = this.width;
     this.canvas.height = this.length;
     this.canvasfill();
+    window.addEventListener('resize',this.respondCanvas);
+  }
+
+  respondCanvas(){
+    this.canvas.width = this.container.getBoundingClientRect().width;
+    this.canvas.height = this.container.getBoundingClientRect().height;
+    return this.canvasfill();
+    
   }
 
   //---------------UPDATE CANVAS AND ELEMENTS SECTION
@@ -172,16 +182,16 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
       var color;
       switch (s.cleanStatus) {
         case "clean":
-          color = "rgba(0, 255, 92, 0.64)";
+          color = "#0C755B";
           break;
 
         case "dirty":
-          color = "rgba(255, 255, 92, 0.64)";
+          color = "#F3AF42";
           break;
 
 
         case "occupied":
-          color = "rgba(255, 0, 92, 0.64)";
+          color = "#F2293A";
           break;
       }
       this.draw(s.xPos, s.yPos, color);
