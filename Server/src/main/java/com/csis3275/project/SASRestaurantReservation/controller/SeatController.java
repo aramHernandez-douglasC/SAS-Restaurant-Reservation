@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,6 +62,37 @@ public class SeatController {
 			throw new Exception(e);
 		}
 
+	}
+	/**
+	 * UPDATE SEAT (ADMIN)
+	 * 
+	 * This method takes a whole seat object in with updated values, it then
+	 * finds the seat in the database that has a corresponding id to the one it
+	 * has receieved in parameter. it then sets the current seat to the newly
+	 * added seat attributes from the parameter object. Once the updated values
+	 * are added, the seat gets updated in the database using the CRUD operations
+	 * from the repository.
+
+	 *   @param Seat seat : the object with updated seat values 
+	 *   
+	 *   @author Sean Gaudette 300283112
+	 * **/
+	@PutMapping(value = "/updateSeat", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Seat> updateSeat(@RequestBody Seat seat1) throws Throwable {
+		try {
+			
+				
+			if (seat1 != null) {
+				this.seat = seat1;
+				repository.save(this.seat);
+				System.out.println("User Updated!");
+				System.out.print("Seat updated successfully: " + this.seat.getId());
+			}
+
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 	}
 
 }
