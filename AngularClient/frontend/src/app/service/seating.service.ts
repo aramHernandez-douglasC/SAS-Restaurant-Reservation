@@ -38,7 +38,7 @@ export class SeatingService {
       }),
       params
     };
-    console.log(params);
+    
 
     return this.http.put(this.UPDATE_SEAT, body, options);
   }

@@ -21,9 +21,13 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
       shareReplay()
     );
 
-  //------HTML DOM 
+    //Canvas 
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
+  width:number = 700;
+  length: number = 500;
+  //------HTML DOM 
+
   button: HTMLButtonElement;
   updateStatusForm: FormGroup;
 
@@ -32,6 +36,7 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
   updateRequest: boolean;
   seats: Seat[];
   selectedSeat: Seat;
+  updatedSeat: Seat;
   _RADIUS: number = 40;
   statusOptions = [
     "dirty",
@@ -40,45 +45,86 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
   ]
 
 
+
   constructor(
     private _ac: ActivatedRoute,
     private breakpointObserver: BreakpointObserver,
-    private service : SeatingService,
-    private fb  : FormBuilder,
+    private service: SeatingService,
+    private fb: FormBuilder,
     private router: Router
   ) {
     this.seats = this._ac.snapshot.data.seat
 
   }
-
-
   ngOnInit(): void {
     this.updateStatusForm = this.fb.group({
       status: null,
     })
-    
-
   }
-  
+
   ngAfterViewInit() {
-
-
-
-
     /**
      * CANVAS Methods and Manipulation 
      */
-    console.log(this.seats);
     this.canvas = document.querySelector('canvas') as
       HTMLCanvasElement;
     this.ctx = this.canvas.getContext("2d");
-    this.canvas.width = 700;
-    this.canvas.height = 500;
+    this.canvas.width = this.width;
+    this.canvas.height = this.length;
+    this.canvasfill();
+  }
+
+  /**
+     * UPDATE Button and Form
+     */
+
+
+  updateRequestMethod() {
+    this.updateRequest = true;
+    () => {
+      this.updateStatusForm.get("s").patchValue(null);
+    }
+  }
+
+
+  submitSeatUpdate() {
+
+    if (this.updateStatusForm.invalid) {
+      return;
+    }
+
+    const body = {
+      seatId: this.selectedSeat.id,
+      status: this.updateStatusForm.value.status
+    };
+    this.service.updateSeatbyId(body).subscribe(data => {
+
+      this.updateRequest = false;
+      this.selectedSeat = null;
+      this.updateItem(this.seats, data);
+      console.log(this.seats);
+      this.canvasfill();
+
+    });
+
+  }
+  updateItem(array: any[], item: any) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].id == item.id) {
+        array[i] = item;
+      }
+    }
+  }
+
+  /***
+   * CANVAS METHODS
+   */
+
+
+  canvasfill() {
+     this.ctx.clearRect(0,0,this.width,this.length);
     this.seats.forEach(s => {
-
       var color;
-
-
       switch (s.cleanStatus) {
         case "clean":
           color = "rgba(0, 255, 92, 0.64)";
@@ -90,71 +136,31 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
 
 
         case "occupied":
-         color = "rgba(255, 0, 92, 0.64)";
+          color = "rgba(255, 0, 92, 0.64)";
           break;
-
       }
-
       this.draw(s.xPos, s.yPos, color);
       this.canvas.addEventListener("click", (event) => {
-
+        
         const rect = this.canvas.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
 
         if (this.clickItem(x, s.xPos, y, s.yPos)) {
+          this.updateRequest = false;
           this.selectedSeat = s;
-          console.log(this.selectedSeat);
-
         }
-        console.log(this.selected);
-
-
       });
-
-
     });
   }
-
-  /**
-     * UPDATE Button and Form
-     */
-  updateRequestMethod() {    
-    this.updateRequest = true; 
-    ()=>{
-      this.updateStatusForm.get("s").patchValue(null);
-    }
-  }
-
-
-  submitSeatUpdate(){
-    console.log("updating");
-    if(this.updateStatusForm.invalid){
-      return;
-    }
-    //Part of my issue :(
-    const body = {
-      seatId: this.selectedSeat.id,
-      status: this.updateStatusForm.value.status
-    };
-    this.service.updateSeatbyId(body).subscribe(data =>{
-      console.log(data);
-      this.updateRequest = false
-    });
-    this.router.navigate(["/seat"]);
-    
-
-
-  }
-
-
-
 
   draw(xPos, yPos, color) {
+   
     this.ctx.beginPath();
     this.ctx.arc(xPos, yPos, this._RADIUS, 0, Math.PI * 2, false);
     this.ctx.fillStyle = color;
     this.ctx.fill();
+    this.ctx.closePath();
 
   }
 
@@ -169,6 +175,6 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
     return this.selected = false;
   }
 
-  
+
 
 }
