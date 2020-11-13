@@ -5,52 +5,7 @@
       <h1> Restaurant name </h1>
     </mat-toolbar>
     <mat-nav-list>
-      <div *ngIf="selectedSeat != null; else noSelectedBlock">
-
-        <h2>Seat Selected</h2>
-        <label>Seat Number:</label>
-        <p> {{selectedSeat.id}} </p>
-        <br>
-
-        <label>Capacity:</label>
-        <p> {{selectedSeat.capacity}} </p>
-        <br>
-
-        <div>
-          <label>Current status:</label>
-          <p *ngIf="!updateRequest ; else updateForm"> {{selectedSeat.cleanStatus}} </p>
-          <br>
-        </div>
-
-        <label>Server:</label>
-        <p> {{selectedSeat.serverId}} </p>
-        <br>
-
-        <button (click)="updateRequestMethod()">Update Status</button>
-      </div>
-
-      <ng-template #noSelectedBlock>
-        <h1> Please select a seat</h1>
-      </ng-template>
-
-      <ng-template #updateForm>
-        <div>
-          <form [formGroup]="updateStatusForm" (ngSubmit)="submitSeatUpdate()">
-            <div class="form-group form-check">
-
-              
-              <select formControlName="status">
-                <option [ngValue]="null" disabled > {{selectedSeat.cleanStatus}}</option>
-                <option *ngFor="let s of statusOptions" [ngValue]="s">{{s}}</option>
-              </select>
-              <br>
-              <button type="submit" class="btn">Update</button>
-            </div>
-          </form>
-        </div>
-      </ng-template>
-
-
+      <!--content -->
 
 
     </mat-nav-list>
@@ -60,9 +15,60 @@
       <h2>Welcome</h2>
     </mat-toolbar>
     <div id="main" role="main">
-      <canvas id="respondCanvas" >
-          
+      <canvas id="respondCanvas">
       </canvas>
-  </div> 
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+
+<!---------CONTAINER BLOCKS ------------->
+
+<ng-template #EmployeeBlock>
+  <div *ngIf="selectedSeat != null; else noSelectedBlock">
+
+    <h2>Seat Selected</h2>
+    <label>Seat Number:</label>
+    <p> {{selectedSeat.id}} </p>
+    <br>
+
+    <label>Capacity:</label>
+    <p> {{selectedSeat.capacity}} </p>
+    <br>
+
+    <div>
+      <label>Current status:</label>
+      <p *ngIf="!updateRequest ; else updateForm"> {{selectedSeat.cleanStatus}} </p>
+      <br>
+    </div>
+
+    <label>Server:</label>
+    <p> {{selectedSeat.serverId}} </p>
+    <br>
+
+    <button (click)="updateRequestMethod()">Update Status</button>
+  </div>
+</ng-template>
+
+
+
+<ng-template #noSelectedBlock>
+  <h1> Please select a seat</h1>
+</ng-template>
+
+<ng-template #updateForm>
+  <div>
+    <form [formGroup]="updateStatusForm" (ngSubmit)="submitSeatUpdate()">
+      <div class="form-group form-check">
+
+
+        <select formControlName="status">
+          <option [ngValue]="null" disabled> {{selectedSeat.cleanStatus}}</option>
+          <option *ngFor="let s of statusOptions" [ngValue]="s">{{s}}</option>
+        </select>
+        <br>
+        <button type="submit" class="btn">Update</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
