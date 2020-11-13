@@ -22,10 +22,12 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
     );
 
   //Canvas Variables
+  role: string;
+  name: string;
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
-  container: HTMLDivElement;  
-  width:number = 800;
+  container: HTMLDivElement;
+  width: number = 800;
   length: number = 500;
 
   //------HTML DOM 
@@ -67,8 +69,8 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
     private breakpointObserver: BreakpointObserver,
     private service: SeatingService,
     private fb: FormBuilder,
-    private router: Router
-  ) {
+    private ac: ActivatedRoute,
+    private route: ActivatedRoute) {
     this.seats = this._ac.snapshot.data.seat
 
   }
@@ -81,6 +83,11 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
     this.updateStatusForm = this.fb.group({
       status: null,
     })
+
+    this.role = this.ac.snapshot.paramMap.get('role');
+    this.name = this.ac.snapshot.paramMap.get('name');
+    console.log(this.role);
+    console.log(this.name);
   }
 
   /**
@@ -100,14 +107,15 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
     this.canvas.width = this.width;
     this.canvas.height = this.length;
     this.canvasfill();
-    window.addEventListener('resize',this.respondCanvas);
+    window.addEventListener('resize', this.respondCanvas);
   }
 
-  respondCanvas(){
+  respondCanvas() {
     this.canvas.width = this.container.getBoundingClientRect().width;
     this.canvas.height = this.container.getBoundingClientRect().height;
+
     return this.canvasfill();
-    
+
   }
 
   //---------------UPDATE CANVAS AND ELEMENTS SECTION
@@ -177,7 +185,7 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
    * 
    */
   canvasfill() {
-     this.ctx.clearRect(0,0,this.width,this.length);
+    this.ctx.clearRect(0, 0, this.width, this.length);
     this.seats.forEach(s => {
       var color;
       switch (s.cleanStatus) {
@@ -196,7 +204,7 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
       }
       this.draw(s.xPos, s.yPos, color);
       this.canvas.addEventListener("click", (event) => {
-        
+
         const rect = this.canvas.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
@@ -218,7 +226,7 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
    * @param color The color you want the item to be fill with
    */
   draw(xPos, yPos, color) {
-   
+
     this.ctx.beginPath();
     this.ctx.arc(xPos, yPos, this._RADIUS, 0, Math.PI * 2, false);
     this.ctx.fillStyle = color;
