@@ -28,13 +28,19 @@ export class SeatingService {
 
   }
   updateSeatbyId(body): Observable<any>{
-    let params : HttpParams = new HttpParams();
-    params = params.set("seatId", body.id)
-    .set("status", body.newStatus);
+    let params : HttpParams = new HttpParams()
+    .set("seatId", body.seatId)
+    .set("status", body.status);
 
-    console.log(body);
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      params
+    };
+    console.log(params);
 
-    return this.http.put(this.UPDATE_SEAT, body);
+    return this.http.put(this.UPDATE_SEAT, body, options);
   }
 }
 

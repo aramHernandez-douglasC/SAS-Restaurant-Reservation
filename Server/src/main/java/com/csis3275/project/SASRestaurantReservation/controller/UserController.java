@@ -62,8 +62,7 @@ public class UserController {
 	}
 
 	/**
-	 * Resetkjdjajdf
-	 * jdksjdkjd
+	 * 
 	 * @param 
 	 * @return 
 	 * 

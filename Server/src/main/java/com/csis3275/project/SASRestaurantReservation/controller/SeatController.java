@@ -98,13 +98,14 @@ public class SeatController {
 	 * **/
 	@PutMapping (value = "/update-seat-status")
 	public void updateSeatStatus(@RequestParam int seatId, @RequestParam String status) throws Throwable{
+		System.out.print("id =" + seatId + "status: "+ status);
 		try {
 			this.seat = repository.findById(seatId).get();
 			
 			if (this.seat != null) {
 				this.seat.setCleanStatus(status);
 				repository.save(this.seat);
-				System.out.print("Seat updated successfully: " + this.seat.getId());
+				System.out.println("Seat updated successfully: " + this.seat.getId());
 			}
 		} catch (Exception e) {
 			throw new Exception(e);

@@ -54,10 +54,12 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.updateStatusForm = this.fb.group({
-      status: "",
+      status: null,
     })
+    
 
   }
+  
   ngAfterViewInit() {
 
 
@@ -74,24 +76,26 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
     this.canvas.height = 500;
     this.seats.forEach(s => {
 
+      var color;
+
 
       switch (s.cleanStatus) {
         case "clean":
-          s.color = "rgba(0, 255, 92, 0.64)";
+          color = "rgba(0, 255, 92, 0.64)";
           break;
 
         case "dirty":
-          s.color = "rgba(255, 255, 92, 0.64)";
+          color = "rgba(255, 255, 92, 0.64)";
           break;
 
 
         case "occupied":
-          s.color = "rgba(255, 0, 92, 0.64)";
+         color = "rgba(255, 0, 92, 0.64)";
           break;
 
       }
 
-      this.draw(s.xPos, s.yPos, s.color);
+      this.draw(s.xPos, s.yPos, color);
       this.canvas.addEventListener("click", (event) => {
 
         const rect = this.canvas.getBoundingClientRect();
@@ -117,11 +121,9 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
      */
   updateRequestMethod() {    
     this.updateRequest = true; 
-    //Not updating select box how it should
-    this.updateStatusForm = this.fb.group({
-      s: [null]
-    })
-
+    ()=>{
+      this.updateStatusForm.get("s").patchValue(null);
+    }
   }
 
 
@@ -131,9 +133,9 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
       return;
     }
     //Part of my issue :(
-    let body = {
+    const body = {
       seatId: this.selectedSeat.id,
-      status: this.updateStatusForm.status.valueOf()
+      status: this.updateStatusForm.value.status
     };
     this.service.updateSeatbyId(body).subscribe(data =>{
       console.log(data);
@@ -167,34 +169,6 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
     return this.selected = false;
   }
 
-  update(xPos, yPos, cleanStatus) {
-    var color: string;
-
-    switch (cleanStatus) {
-      case "clean":
-        console.log(cleanStatus);
-        color = "rgba(0, 255, 92, 0.64)";
-        break;
-
-
-
-      case "dirty":
-        color = ""
-        console.log(cleanStatus);
-        color = "rgba(255, 255, 92, 0.64)";
-        break;
-
-
-      case "occupied":
-        color = ""
-        console.log(cleanStatus);
-        color = "rgba(255, 0, 92, 0.64)";
-        break;
-
-
-
-    }
-    this.draw(xPos, yPos, color);
-  }
+  
 
 }
