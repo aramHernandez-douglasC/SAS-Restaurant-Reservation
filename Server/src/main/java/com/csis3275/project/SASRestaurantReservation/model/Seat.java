@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "seat")
 public class Seat {
+	
 	@Id
 	@Column(name = "seat_id")
 	@GeneratedValue

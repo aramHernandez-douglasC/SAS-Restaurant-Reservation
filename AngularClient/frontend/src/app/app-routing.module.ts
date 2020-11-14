@@ -8,7 +8,7 @@ import {WelcomeUserComponent} from './components/welcomeuser/welcome-user.compon
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
-    path: 'seat/:role/:name',
+    path: 'seat',
     component: SeatIconComponent,
     resolve: {
       seat : SeatResolver
