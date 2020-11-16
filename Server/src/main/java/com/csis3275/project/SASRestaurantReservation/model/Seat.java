@@ -32,6 +32,7 @@ public class Seat {
 	private String cleanStatus;	
 	
 
+
 	@Column(name = "serverId")
 	private String serverId;
 
@@ -75,6 +76,7 @@ public class Seat {
 		this.cleanStatus = cleanStatus;
 	}
 
+
 	public String getServerId() {
 		return serverId;
 	}
@@ -93,8 +95,7 @@ public class Seat {
 	}
 
 	
-	
-	
+
 	
 
 }

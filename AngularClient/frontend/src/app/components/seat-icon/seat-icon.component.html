@@ -1,4 +1,5 @@
 <mat-sidenav-container class="sidenav-container">
+
   <!--SIDE NAVIGATION BAR-->
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
@@ -156,6 +157,7 @@
     <label>Server:</label>
     <p> {{selectedSeat.serverId}} </p>
     <br>
+
 
     <button (click)="updateRequestMethod()">Update Status</button>
   </div>
