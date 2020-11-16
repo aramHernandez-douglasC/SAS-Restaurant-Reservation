@@ -87,7 +87,7 @@ public class Seat {
 	}
 	public boolean checkCleanSeat() {
 		
-		if(this.cleanStatus == "Clean")
+		if(this.cleanStatus.toLowerCase() == "clean")
 		{
 			return true;
 		}

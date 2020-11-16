@@ -16,14 +16,17 @@ class ModelTest {
 	User user = new User("testUser", "test", "User", "testUser@email.com", "Admin", "test");
 	@BeforeEach
 	void setUp() throws Exception {
-		
-		
+		this.seatClean.setCapacity(3);
+		this.seatClean.setxPos(200);
+		this.seatClean.setyPos(300);
+		this.seatClean.setCleanStatus("clean");
+		this.seatClean.setId(1);
 		
 	}
 
 	@Test
 	void seatTest() {
-		assertEquals("Clean",seatClean.getCleanStatus());
+		assertEquals("clean",seatClean.getCleanStatus());
 	}
 	
 	@Test
@@ -34,7 +37,7 @@ class ModelTest {
 	@Test
 	void checkCleanTestNotPass() {
 		seatClean.setCleanStatus("Dirty");
-		assertTrue(seatClean.checkCleanSeat());
+		assertFalse(seatClean.checkCleanSeat());
 	}
 	
 	@Test
@@ -50,6 +53,6 @@ class ModelTest {
 	@Test
 	void checkIfAdminNotPass() {
 		user.setType("Employee");
-		assertTrue(user.checkIfAdmin());
+		assertFalse(user.checkIfAdmin());
 	}
 }

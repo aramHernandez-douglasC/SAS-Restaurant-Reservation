@@ -65,9 +65,9 @@
           <p>Position</p>
           <div class="form-group">
             <label for="adminXRange">X-axis</label>
-            <input formControlName="adminXRange" type="number" class="form-control" id="adminXRange"
-            placeholder="{{selectedSeat.xPos}}">
-            <!--<input formControlName="adminXRange"
+            <!--<input formControlName="adminXRange" type="number" class="form-control" id="adminXRange"
+            placeholder="{{selectedSeat.xPos}}"> -->
+            <input formControlName="adminXRange"
             type="range"  
             class="slider" 
             id="adminXRange" 
@@ -75,23 +75,23 @@
             max = "{{width}}"
             value="{{selectedSeat.xPos}}" 
             (change)="sliderCheck()">
-            <p>X = <span id="x-lab">{{selectedSeat.xPos}}</span></p> -->
+            <p>X = <span id="x-lab">{{selectedSeat.xPos}}</span></p> 
 
             
           </div>
           <div class="form-group">
             <label for="adminYRange">Y-axis</label>
-            <input formControlName="adminYRange" type="number" class="form-control" id="adminYRange"
-            placeholder="{{selectedSeat.yPos}}">
-           <!-- <input formControlName="adminYRange"
+            <!--<input formControlName="adminYRange" type="number" class="form-control" id="adminYRange"
+            placeholder="{{selectedSeat.yPos}}">-->
+            <input formControlName="adminYRange"
              type="range"   
             class="slider" 
             id="adminYRange"
             min = "0"
             max = "{{length}}" 
-            value="{{selectedSeat.xPos}}" 
+            value="{{selectedSeat.yPos}}" 
             (change)= "sliderCheck()"> 
-            <p>Y = <span id="y-lab">{{selectedSeat.yPos}}</span></p>-->
+            <p>Y = <span id="y-lab">{{selectedSeat.yPos}}</span></p>
           </div>
         </div>
 

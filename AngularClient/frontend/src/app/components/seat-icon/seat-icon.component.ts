@@ -98,11 +98,11 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
       adminSeatId: [{value: '', disabled:true}, Validators.required],
       adminSeatCapacity: ['',Validators.required],
       adminSeatStatus: null,
-      adminXRange:['',Validators.required],
-      adminYRange:['',Validators.required],
+      //adminXRange:['',Validators.required],
+      //adminYRange:['',Validators.required],
       
-      //adminXRange:[0,[Validators.min(0), Validators.max(this.width)]],
-      //adminYRange:[0,[Validators.min(0),Validators.max(this.length)]]
+      adminXRange:[0,[Validators.min(0), Validators.max(this.width)]],
+      adminYRange:[0,[Validators.min(0),Validators.max(this.length)]]
       
     });
 
