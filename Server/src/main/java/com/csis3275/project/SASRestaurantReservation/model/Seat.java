@@ -92,15 +92,7 @@ public class Seat {
 		return false;
 	}
 
-	public Seat(int id, int xPos, int yPos, int capacity, String cleanStatus, String serverId) {
-		super();
-		this.id = id;
-		this.xPos = xPos;
-		this.yPos = yPos;
-		this.capacity = capacity;
-		this.cleanStatus = cleanStatus;
-		this.serverId = serverId;
-	}
+	
 	
 	
 	

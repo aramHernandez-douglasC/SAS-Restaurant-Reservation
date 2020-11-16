@@ -1,11 +1,12 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SeatingService } from './../../service/seating.service';
 import { Seat } from './../../model/Seat';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { MatAccordion } from '@angular/material/expansion';
 
 
 @Component({
@@ -15,6 +16,8 @@ import { map, shareReplay } from 'rxjs/operators';
 })
 export class SeatIconComponent implements OnInit, AfterViewInit {
 
+  //Accordion Variables
+  @ViewChild(MatAccordion) accordion: MatAccordion;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -22,7 +25,7 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
     );
 
   //Canvas Variables
-  isAdmin: boolean;
+  isAdmin: boolean = true;
   role: string = "Employee";
   name: string;
   canvas: HTMLCanvasElement;
@@ -34,7 +37,13 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
   //------HTML DOM 
 
   button: HTMLButtonElement;
+  adminFormGroup: FormGroup
   updateStatusForm: FormGroup;
+  xValue:number
+  yValue:number;fr
+  xSpan:HTMLSpanElement;
+  ySpan:HTMLSpanElement;
+  
 
   //------Seat Variables
   selected: boolean;
@@ -83,14 +92,20 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.updateStatusForm = this.fb.group({
       status: null,
-    })
+    });
 
-    
+    this.adminFormGroup = this.fb.group({
+      adminSeatId: [{value: '', disabled:true}, Validators.required],
+      adminSeatCapacity: ['',Validators.required],
+      adminSeatStatus: null,
+      adminXRange:['',Validators.required],
+      adminYRange:['',Validators.required],
+      
+      //adminXRange:[0,[Validators.min(0), Validators.max(this.width)]],
+      //adminYRange:[0,[Validators.min(0),Validators.max(this.length)]]
+      
+    });
 
-    if(this.role.toLowerCase() == "admin"){
-      this.isAdmin == true;
-    }
-    
   }
 
   /**
@@ -135,10 +150,11 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
   updateRequestMethod() {
     this.updateRequest = true;
     () => {
-      this.updateStatusForm.get("s").patchValue(null);
+      this.updateStatusForm.get("s").patchValue(null);      
     }
   }
 
+  
   /**
    * This method submits any data that was put on the form to the back end 
    * using the service declared above and stores it on a object of type 
@@ -164,6 +180,43 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
 
     });
 
+  }
+
+  /***
+   * This is the submit method for the ADMIN
+   */
+  submitAdminSeatUpdate() {
+    if (this.updateStatusForm.invalid) {
+      return;
+    }
+
+    let seatItem = new Seat;
+    seatItem.id = this.selectedSeat.id;
+    seatItem.capacity=this.adminFormGroup.value.adminSeatCapacity;
+    seatItem.cleanStatus = this.adminFormGroup.value.adminSeatStatus;
+    seatItem.xPos = this.adminFormGroup.value.adminXRange;
+    seatItem.yPos = this.adminFormGroup.value.adminYRange;
+    
+
+    this.service.updateSeat(seatItem).subscribe(data =>{
+      this.selectedSeat = null;
+      this.updateItem(this.seats, data);
+      console.log(this.seats);
+      this.canvasfill();
+    })
+         
+
+  }
+
+  /** SLIDER CHECK 
+   * This method just updates the span element on the HTML so the user knows where the item is positioned
+   */
+  sliderCheck(){
+    
+    this.xSpan = document.querySelector("#x-lab");
+    this.ySpan = document.querySelector("#y-lab");
+    this.xSpan.innerHTML = this.adminFormGroup.value.adminXRange;
+    this.ySpan.innerHTML = this.adminFormGroup.value.adminYRange;
   }
 
   /**
@@ -211,10 +264,10 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
         const rect = this.canvas.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
-
         if (this.clickItem(x, s.xPos, y, s.yPos)) {
+          this.selectedSeat = null;
           this.updateRequest = false;
-          this.selectedSeat = s;
+          this.selectedSeat = s;         
         }
       });
     });
@@ -256,7 +309,9 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
       Math.sqrt(((xMouse - xPos) * (xMouse - xPos)) + ((yMouse - yPos) * (yMouse - yPos)));
     if (distance < this._RADIUS) {
       console.log(distance);
+      
       return this.selected = true;
+     
     }
     return this.selected = false;
   }

@@ -19,6 +19,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import { WelcomeUserComponent } from './components/welcomeuser/welcome-user.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -38,11 +40,16 @@ import { WelcomeUserComponent } from './components/welcomeuser/welcome-user.comp
     FormsModule,
     BrowserAnimationsModule,
     LayoutModule,
+
+    //Component modules
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule,
+    MatFormFieldModule
+   
   ],
   providers: [AuthenticationService, SeatingService],
   bootstrap: [AppComponent]

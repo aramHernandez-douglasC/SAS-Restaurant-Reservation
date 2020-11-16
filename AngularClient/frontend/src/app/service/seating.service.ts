@@ -1,3 +1,4 @@
+import { Seat } from './../model/Seat';
 
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
@@ -20,7 +21,8 @@ export class SeatingService {
   GET_ALL_SEATS = "http://localhost:8080/seats";
   DELETE_SEAT_BY_ID = "http://localhost:8080/delete-seat";
   ADD_SEAT = "http://localhost:8080/newSeat";
-  UPDATE_SEAT = "http://localhost:8080/update-seat-status";
+  UPDATE_SEAT_STATUS = "http://localhost:8080/update-seat-status";
+  UPDATE_ENTIRE_SEAT = "http://localhost:8080/updateSeat";
 
 
   constructor(private http: HttpClient) { }
@@ -42,7 +44,11 @@ export class SeatingService {
     };
     
 
-    return this.http.put(this.UPDATE_SEAT, body, options);
+    return this.http.put(this.UPDATE_SEAT_STATUS, body, options);
+  }
+
+  updateSeat(seat:Seat): Observable<Seat>{
+    return this.http.put<Seat>(this.UPDATE_ENTIRE_SEAT,seat,httpOptions);
   }
 }
 

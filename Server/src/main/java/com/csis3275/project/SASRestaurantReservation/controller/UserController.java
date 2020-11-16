@@ -1,5 +1,7 @@
 package com.csis3275.project.SASRestaurantReservation.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -48,12 +50,16 @@ public class UserController {
 	 *  @author Sean G
 	 **/
 	@PostMapping("/login")
-	public ResponseEntity<User> authenticateUser(@RequestParam String email, @RequestParam String password)
+	public ResponseEntity<User> authenticateUser(@RequestParam String email, @RequestParam String password, 
+			HttpSession htpses)
 			throws Throwable {
 		try {
+			htpses.invalidate();
 			User user = repository.findByEmail(email);
 			if (user != null && user.getPassword().equals(password)) {
 					System.out.println(user.getFirstName() + " successfully logged in");
+					
+					
 					return new ResponseEntity<User>(user, HttpStatus.OK);
 			}
 		} catch (Exception e) {
@@ -62,7 +68,9 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
 	}
-
+	
+	
+	
 	/**
 	 * REGISTER METHOD
 	 * 

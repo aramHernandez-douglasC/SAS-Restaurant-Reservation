@@ -141,6 +141,7 @@ public class SeatController {
 				repository.save(this.seat);
 				System.out.println("User Updated!");
 				System.out.print("Seat updated successfully: " + this.seat.getId());
+				return new ResponseEntity<Seat>(this.seat, HttpStatus.OK);
 			}
 
 		} catch (Exception e) {

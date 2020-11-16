@@ -1,4 +1,5 @@
 <mat-sidenav-container class="sidenav-container">
+  <!--SIDE NAVIGATION BAR-->
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>
@@ -6,12 +7,14 @@
     </mat-toolbar>
     <mat-nav-list>
       <!--content -->
-      <div *ngIf = "!isAdmin; then EmployeeBlock; else AdminBlock"> 
-
-      </div>
+      <mat-accordion class="example-headers-align" multi>
+        <div *ngIf="!isAdmin; then EmployeeBlock; else AdminBlock">
+        </div>
+      </mat-accordion>
 
     </mat-nav-list>
   </mat-sidenav>
+  <!--BODY CONTENT-->
   <mat-sidenav-content>
     <mat-toolbar color="primary">
       <h2>Welcome</h2>
@@ -24,66 +27,155 @@
 </mat-sidenav-container>
 
 
-  <!--Admin nav-->
-  <ng-template #AdminBlock>
-    <p>&nbsp;Table Number</p>
-    <p>&nbsp;&nbsp;<input type="text" id="id" name="id"></p>
-    <p>&nbsp;Capacity</p>
-    <p>&nbsp;&nbsp;<input type="text" id="capacity" name="capacity"></p>
-    <p>&nbsp;Clean Status</p>
-    <p>&nbsp;&nbsp;<input type="text" id="cleanStatus" name="cleanStatus"></p>
-    <p>&nbsp;X Position</p>
-    <p>&nbsp;&nbsp;<input type="text" id="xPos" name="xPos"></p>
-    <p>&nbsp;Y Position</p>
-    <p>&nbsp;&nbsp;<input type="text" id="yPos" name="yPos"></p>
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button">Add New</button>&nbsp;&nbsp;<button type="button">Update</button>
-    </p>
-  </ng-template>
-
-
-  <!--Employee Nav-->
-  <ng-template #EmployeeBlock>
+<!--Admin nav-->
+<ng-template #AdminBlock> 
+  <!--SEAT OPTIONS-->
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Seat Options
+      </mat-panel-title>
+    </mat-expansion-panel-header>
     <div *ngIf="selectedSeat != null; else noSelectedBlock">
-      <h2>Seat Selected</h2>
-      <label>Seat Number:</label>
-      <p> {{selectedSeat.id}} </p>
-      <br>
+      <form [formGroup]="adminFormGroup" (ngSubmit)="submitAdminSeatUpdate()">
 
-      <label>Capacity:</label>
-      <p> {{selectedSeat.capacity}} </p>
-      <br>
+        <div class="form-group">
+          <label for="adminSeatId">Seat Id</label>
+          <input formControlName="adminSeatId" type="number" class="form-control" id="adminSeatId"
+            placeholder="{{selectedSeat.id}}">
+        </div>
 
-      <div>
-        <label>Current status:</label>
-        <p *ngIf="!updateRequest ; else updateForm"> {{selectedSeat.cleanStatus}} </p>
-        <br>
-      </div>
-
-      <label>Server:</label>
-      <p> {{selectedSeat.serverId}} </p>
-      <br>
-
-      <button (click)="updateRequestMethod()">Update Status</button>
-    </div>
-  </ng-template>
-
-  <ng-template #noSelectedBlock>
-    <h1> Please select a seat</h1>
-  </ng-template>
-
-  <ng-template #updateForm>
-    <div>
-      <form [formGroup]="updateStatusForm" (ngSubmit)="submitSeatUpdate()">
-        <div class="form-group form-check">
+        <div class="form-group">
+          <label for="adminSeatCapacity">Seat Capacity</label>
+          <input formControlName="adminSeatCapacity" type="number" class="form-control" id="adminSeatCapacity"
+            placeholder="{{selectedSeat.capacity}}">
+        </div>
 
 
-          <select formControlName="status">
+        <div class="form-group">
+          <label for="adminSeatStatus">Seat Status</label>
+          <select formControlName="adminSeatStatus" class="form-control">
             <option [ngValue]="null" disabled> {{selectedSeat.cleanStatus}}</option>
             <option *ngFor="let s of statusOptions" [ngValue]="s">{{s}}</option>
           </select>
-          <br>
-          <button type="submit" class="btn">Update</button>
         </div>
+
+        <div id = "position-group">
+          <p>Position</p>
+          <div class="form-group">
+            <label for="adminXRange">X-axis</label>
+            <input formControlName="adminXRange" type="number" class="form-control" id="adminXRange"
+            placeholder="{{selectedSeat.xPos}}">
+            <!--<input formControlName="adminXRange"
+            type="range"  
+            class="slider" 
+            id="adminXRange" 
+            min = "0"
+            max = "{{width}}"
+            value="{{selectedSeat.xPos}}" 
+            (change)="sliderCheck()">
+            <p>X = <span id="x-lab">{{selectedSeat.xPos}}</span></p> -->
+
+            
+          </div>
+          <div class="form-group">
+            <label for="adminYRange">Y-axis</label>
+            <input formControlName="adminYRange" type="number" class="form-control" id="adminYRange"
+            placeholder="{{selectedSeat.yPos}}">
+           <!-- <input formControlName="adminYRange"
+             type="range"   
+            class="slider" 
+            id="adminYRange"
+            min = "0"
+            max = "{{length}}" 
+            value="{{selectedSeat.xPos}}" 
+            (change)= "sliderCheck()"> 
+            <p>Y = <span id="y-lab">{{selectedSeat.yPos}}</span></p>-->
+          </div>
+        </div>
+
+
+        <button type="submit">Submit</button>
+
+
       </form>
+
+
     </div>
-  </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Menu Options
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>Coming soon...</p>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Reservations
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>Coming soon...</p>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Restaurant Layout Options
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Coming soon...</p>
+        </mat-expansion-panel>
+
+  
+</ng-template>
+
+
+<!--Employee Nav-->
+<ng-template #EmployeeBlock>
+  <div *ngIf="selectedSeat != null; else noSelectedBlock">
+    <h2>Seat Selected</h2>
+    <label>Seat Number:</label>
+    <p> {{selectedSeat.id}} </p>
+    <br>
+
+    <label>Capacity:</label>
+    <p> {{selectedSeat.capacity}} </p>
+    <br>
+
+    <div>
+      <label>Current status:</label>
+      <p *ngIf="!updateRequest ; else updateForm"> {{selectedSeat.cleanStatus}} </p>
+      <br>
+    </div>
+
+    <label>Server:</label>
+    <p> {{selectedSeat.serverId}} </p>
+    <br>
+
+    <button (click)="updateRequestMethod()">Update Status</button>
+  </div>
+</ng-template>
+
+<ng-template #noSelectedBlock>
+  <h3> Please select a seat</h3>
+</ng-template>
+
+<ng-template #updateForm>
+  <div>
+    <form [formGroup]="updateStatusForm" (ngSubmit)="submitSeatUpdate()">
+      <div class="form-group form-check">
+        <select formControlName="status">
+          <option [ngValue]="null" disabled> {{selectedSeat.cleanStatus}}</option>
+          <option *ngFor="let s of statusOptions" [ngValue]="s">{{s}}</option>
+        </select>
+        <br>
+        <button type="submit" class="btn">Update</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

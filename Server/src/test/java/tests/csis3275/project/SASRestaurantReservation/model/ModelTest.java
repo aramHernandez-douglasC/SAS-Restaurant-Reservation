@@ -12,7 +12,7 @@ import com.csis3275.project.SASRestaurantReservation.controller.UserController;
 class ModelTest {
 
 	
-	Seat seatClean = new Seat(10, 100, 200, 5, "Clean", "2");
+	Seat seatClean = new Seat();	
 	User user = new User("testUser", "test", "User", "testUser@email.com", "Admin", "test");
 	@BeforeEach
 	void setUp() throws Exception {
