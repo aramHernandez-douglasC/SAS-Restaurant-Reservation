@@ -24,6 +24,9 @@ class ModelTest {
 		
 	}
 
+	/**
+	 * This test checks for if the clean status is actually
+	 * working and setting it correctly**/
 	@Test
 	void seatTest() {
 		assertEquals("clean",seatClean.getCleanStatus());
@@ -40,6 +43,9 @@ class ModelTest {
 		assertFalse(seatClean.checkCleanSeat());
 	}
 	
+	/**
+	 * This method checks for the roles of each of the users and 
+	 * which then will be send to the front end*/
 	@Test
 	void checkUserTest(){
 		assertEquals("testUser", user.getUserName());
