@@ -25,8 +25,8 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
     );
 
   //Canvas Variables
-  isAdmin: boolean = true;
-  role: string = "Employee";
+  isAdmin: boolean;
+  role: string ;
   name: string;
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
@@ -80,8 +80,12 @@ export class SeatIconComponent implements OnInit, AfterViewInit {
     private service: SeatingService,
     private fb: FormBuilder) {
     this.seats = this._ac.snapshot.data.seat
-    // this.role = this._ac.snapshot.paramMap.get('role');
-    // this.name = this._ac.snapshot.paramMap.get('name');
+    this.role = this._ac.snapshot.paramMap.get('role');
+    this.name = this._ac.snapshot.paramMap.get('name');
+
+    if (this.role == "Admin"){
+      this.isAdmin = true;
+    }
 
   }
   /***

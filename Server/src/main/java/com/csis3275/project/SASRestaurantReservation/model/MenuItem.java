@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "MENU_ITEMS")
 public class MenuItem {
+	
 	@Id
 	@Column(name = "item_id")
 	@GeneratedValue
