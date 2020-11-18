@@ -6,26 +6,26 @@
                 Seat Options
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <div *ngIf="selectedSeat != null; else noSelectedBlock">
+        <div *ngIf="canvas.selectedSeat != null; else noSelectedBlock">
             <form [formGroup]="adminFormGroup" (ngSubmit)="submitAdminSeatUpdate()">
 
                 <div class="form-group">
                     <label for="adminSeatId">Seat Id</label>
                     <input formControlName="adminSeatId" type="number" class="form-control" id="adminSeatId"
-                        placeholder="{{selectedSeat.id}}">
+                        placeholder="{{canvas.selectedSeat.id}}">
                 </div>
 
                 <div class="form-group">
                     <label for="adminSeatCapacity">Seat Capacity</label>
                     <input formControlName="adminSeatCapacity" type="number" class="form-control" id="adminSeatCapacity"
-                        placeholder="{{selectedSeat.capacity}}">
+                        placeholder="{{canvas.selectedSeat.capacity}}">
                 </div>
 
 
                 <div class="form-group">
                     <label for="adminSeatStatus">Seat Status</label>
                     <select formControlName="adminSeatStatus" class="form-control">
-                        <option [ngValue]="null" disabled> {{selectedSeat.cleanStatus}}</option>
+                        <option [ngValue]="null" disabled> {{canvas.selectedSeat.cleanStatus}}</option>
                         <option *ngFor="let s of statusOptions" [ngValue]="s">{{s}}</option>
                     </select>
                 </div>
@@ -37,8 +37,8 @@
                         <!--<input formControlName="adminXRange" type="number" class="form-control" id="adminXRange"
               placeholder="{{selectedSeat.xPos}}"> -->
                         <input formControlName="adminXRange" type="range" class="slider" id="adminXRange" min="0"
-                            max="{{width}}" value="{{selectedSeat.xPos}}" (change)="sliderCheck()">
-                        <p>X = <span id="x-lab">{{selectedSeat.xPos}}</span></p>
+                            max="{{canvas.width}}" value="{{canvas.selectedSeat.xPos}}" (change)="sliderCheck()">
+                        <p>X = <span id="x-lab">{{canvas.selectedSeat.xPos}}</span></p>
 
 
                     </div>
@@ -47,8 +47,8 @@
                         <!--<input formControlName="adminYRange" type="number" class="form-control" id="adminYRange"
               placeholder="{{selectedSeat.yPos}}">-->
                         <input formControlName="adminYRange" type="range" class="slider" id="adminYRange" min="0"
-                            max="{{length}}" value="{{selectedSeat.yPos}}" (change)="sliderCheck()">
-                        <p>Y = <span id="y-lab">{{selectedSeat.yPos}}</span></p>
+                            max="{{canvas.length}}" value="{{canvas.selectedSeat.yPos}}" (change)="sliderCheck()">
+                        <p>Y = <span id="y-lab">{{canvas.selectedSeat.yPos}}</span></p>
                     </div>
                 </div>
 

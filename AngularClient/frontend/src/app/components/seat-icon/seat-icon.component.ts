@@ -1,3 +1,4 @@
+import { Canvas } from './../../model/canvas';
 import { CanvasComponent } from './canvas/canvas.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SeatingService } from './../../service/seating.service';
@@ -44,16 +45,15 @@ export class SeatIconComponent implements OnInit {
   width: number = 800;
   length: number = 500;  
   seats: Seat[];
+
   selectedSeat: Seat;
   updateRequest: boolean;
-
-  canvas : CanvasComponent;
 
   //------HTML DOM 
 
   button: HTMLButtonElement; 
   updateStatusForm: FormGroup;
-  
+  canvas : Canvas;
   
 
   //------Seat Variables
@@ -88,10 +88,11 @@ export class SeatIconComponent implements OnInit {
     private fb: FormBuilder, // employee
     ) 
     {
-    this.seats =  this._ac.snapshot.data.seat
+    this.canvas = new Canvas();    
+    this.seats =  this._ac.snapshot.data.seat    
     this.role = this._ac.snapshot.paramMap.get('role');
     this.name = this._ac.snapshot.paramMap.get('name');
-
+    
     if (this.role == "Admin"){
       this.isAdmin = true;
     }
@@ -106,9 +107,17 @@ export class SeatIconComponent implements OnInit {
     console.log(this.seats);
     this.updateStatusForm = this.fb.group({// employee
       status: null,
-    });
+    }); 
 
     
+    this.canvas.setRadius(40)
+  }
+
+  setSelectedSeat(seat:Seat){
+    this.selectedSeat = seat;
+  }
+  setUpdateRequest(req){
+    this.updateRequest = req;
 
   }
 
@@ -133,6 +142,9 @@ export class SeatIconComponent implements OnInit {
   }
 
   
+
+
+  
   /**
    * This method submits any data that was put on the form to the back end 
    * using the service declared above and stores it on a object of type 
@@ -154,7 +166,7 @@ export class SeatIconComponent implements OnInit {
 
       this.updateRequest = false;
       this.selectedSeat = null;
-      this.canvas.updateItem(this.seats, data);
+      this.canvas.updateItem(data);
       console.log(this.seats);
       this.canvas.canvasfill();
 

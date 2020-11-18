@@ -20,14 +20,18 @@
     <mat-toolbar color="primary">
       <h2>Welcome</h2>
     </mat-toolbar>
-    <app-canvas [width]="width" [length] = "length" [seats]= "seats" [selectedSeat] = "selectedSeat"></app-canvas>
+    <app-canvas [seats] = "seats" [length]= "length"
+    [width] = "width"
+    [(canvas)] = "canvas"></app-canvas>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
 
 <!--Admin nav-->
 <ng-template #AdminBlock> 
-  <app-admin-side-bar [selectedSeat] = "selectedSeat" [seats] = "seats" ></app-admin-side-bar>
+  <app-admin-side-bar [selectedSeat] = "selectedSeat"
+   [statusOptions] = "statusOptions" [seats] = "seats"
+   [(canvas)] = "canvas" (updateItem) = "updateItem($arr, $item)" ></app-admin-side-bar>
 </ng-template>
 
 

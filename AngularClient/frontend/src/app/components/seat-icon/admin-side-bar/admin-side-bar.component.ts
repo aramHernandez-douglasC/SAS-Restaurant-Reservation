@@ -1,5 +1,5 @@
 import { CanvasComponent } from '../canvas/canvas.component';
-import { Inject, Component, OnInit, Injectable, Input} from '@angular/core';
+import { Inject, Component, OnInit, Injectable, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SeatingService } from '../../../service/seating.service';
 import { Seat } from '../../../model/Seat';
@@ -10,11 +10,10 @@ import { Seat } from '../../../model/Seat';
   styleUrls: ['./admin-side-bar.component.css']
 })
 
-@Injectable()
+
 export class AdminSideBarComponent implements OnInit {
 
   adminFormGroup: FormGroup;
-  canvas: CanvasComponent;
   xValue:number
   yValue:number;
   xSpan:HTMLSpanElement;
@@ -25,16 +24,25 @@ export class AdminSideBarComponent implements OnInit {
   //BIND PROPERTIES
   @Input() selectedSeat;
   @Input() seats;
+  @Input() statusOptions;
+  @Input() canvas;
+
+  @Output() updateItem = new EventEmitter ();
 
 
 
 
-  constructor(
-    
+  constructor(    
     private service: SeatingService,
     private fb: FormBuilder,
     
     ) {
+    
+    
+  }
+
+  
+  ngOnInit(): void {
     this.adminFormGroup = this.fb.group({
       adminSeatId: [{ value: '', disabled: true }, Validators.required],
       adminSeatCapacity: ['', Validators.required],
@@ -49,9 +57,7 @@ export class AdminSideBarComponent implements OnInit {
     
   }
 
-  ngOnInit(): void {
-    
-  }
+  
 
    /***
    * This is the submit method for the ADMIN
@@ -59,13 +65,16 @@ export class AdminSideBarComponent implements OnInit {
 
   
   
+
   submitAdminSeatUpdate() {
+    console.log(this.adminFormGroup);
     if (this.adminFormGroup.invalid) {
+      console.log("ivalid request") 
       return;
     }
 
     let seatItem = new Seat;
-    seatItem.id = this.selectedSeat.id;
+    seatItem.id = this.canvas.selectedSeat.id;
     seatItem.capacity=this.adminFormGroup.value.adminSeatCapacity;
     seatItem.cleanStatus = this.adminFormGroup.value.adminSeatStatus;
     seatItem.xPos = this.adminFormGroup.value.adminXRange;
@@ -73,14 +82,18 @@ export class AdminSideBarComponent implements OnInit {
     
 
     this.service.updateSeat(seatItem).subscribe(data =>{
-      this.selectedSeat = null;
-      this.canvas.updateItem(this.seats, data);
-      console.log(this.seats);
-      this.canvas.canvasfill();
+      this.canvas.setSelectedSeat(null);
+      
+      this.canvas.updateItem(data);    
+      
     })
+
+    
          
 
   }
+
+  
 
    /** SLIDER CHECK 
    * This method just updates the span element on the HTML so the user knows where the item is positioned
@@ -92,6 +105,9 @@ export class AdminSideBarComponent implements OnInit {
     this.xSpan.innerHTML = this.adminFormGroup.value.adminXRange;
     this.ySpan.innerHTML = this.adminFormGroup.value.adminYRange;
   }
+
+  
+
 
   
   
