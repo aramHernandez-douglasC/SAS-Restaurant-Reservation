@@ -1,0 +1,5 @@
+com.csis3275.project.SASRestaurantReservation
+com.csis3275.project.SASRestaurantReservation.controller
+com.csis3275.project.SASRestaurantReservation.model
+com.csis3275.project.SASRestaurantReservation.repository
+tests.csis3275.project.SASRestaurantReservation.model

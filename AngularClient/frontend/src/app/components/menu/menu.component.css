@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table-head{
+  color: #808F85;
+  text-align: center;
+  font-size: 2em;
+}
+table{
+  background: transparent;
+  border-spacing: 10px;
+  border-collapse: separate;
+  display: table;
+  width: 100%;
+}
+.mat-cell {
+  color: #F2E9DC;
+  text-align: center;
+  font-size: 1.2em;
+  border-color: transparent;
+}
+
+.th-center{
+  text-align: center;
+  color: #F2E9DC;
+  text-align: center;
+  font-size: 1.5em;
+}
+mat-card{
+  width: 100%;
+}

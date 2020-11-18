@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "seat")
 public class Seat {
+	
 	@Id
 	@Column(name = "seat_id")
 	@GeneratedValue
@@ -29,9 +30,11 @@ public class Seat {
 	
 	@Column (name = "cleanStatus")	
 	private String cleanStatus;	
+
+
+	@ManyToOne
+	private User serverId;
 	
-	@Column(name= "serverId")
-	private String serverId;
 
 	public int getId() {
 		return id;
@@ -73,15 +76,27 @@ public class Seat {
 		this.cleanStatus = cleanStatus;
 	}
 
-	public String getServerId() {
+
+	
+	public User getServerId() {
 		return serverId;
 	}
 
-	public void setServerId(String serverId) {
+	public void setServerId(User serverId) {
 		this.serverId = serverId;
 	}
+
+	public boolean checkCleanSeat() {
+		
+		if(this.cleanStatus.toLowerCase() == "clean")
+		{
+			return true;
+		}
+		return false;
+	}
+
 	
-	
+
 	
 
 }
