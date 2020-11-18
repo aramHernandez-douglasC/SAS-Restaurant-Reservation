@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuItemService} from '../../service/menu-item.service';
+import {MenuItemService} from './../../service/menu-item.service';
 import {MenuItem} from '../../model/MenuItem';
 import {MatTableDataSource} from '@angular/material/table';
 

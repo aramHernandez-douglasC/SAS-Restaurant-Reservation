@@ -29,8 +29,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTableModule} from '@angular/material/table';
+import {MatDialogModule} from '@angular/material/dialog';
 import { ErrorComponent } from './components/error/error.component';
-
+import { AdminSideBarComponent } from './components/seat-icon/admin-side-bar/admin-side-bar.component';
+import { CanvasComponent } from './components/seat-icon/canvas/canvas.component';
 
 
 @NgModule({
@@ -42,6 +44,10 @@ import { ErrorComponent } from './components/error/error.component';
     WelcomeUserComponent,
     MenuComponent,
     ErrorComponent,
+    
+    AdminSideBarComponent,
+    
+    CanvasComponent
   ],
   imports: [
     HttpClientModule,
@@ -49,22 +55,22 @@ import { ErrorComponent } from './components/error/error.component';
     NgxWebstorageModule.forRoot(),
     AppRoutingModule,
     AlertModule.forRoot(),
+
+    //Forms Modules
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     LayoutModule,
 
-    //Component modules
+    //Angular-Component modules
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-
     MatExpansionModule,
     MatFormFieldModule,
-   
-
+    MatDialogModule,
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
@@ -72,7 +78,7 @@ import { ErrorComponent } from './components/error/error.component';
     MatProgressSpinnerModule
 
   ],
-  providers: [AuthenticationService, SeatingService],
+  providers: [AuthenticationService, SeatingService, ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -27,8 +27,8 @@ export class SeatingService {
 
   constructor(private http: HttpClient) { }
 
-  requestAllSeats(): Observable<any>{
-    return this.http.get(this.GET_ALL_SEATS);
+  requestAllSeats(): Observable<Seat[]>{
+    return this.http.get<Seat[]>(this.GET_ALL_SEATS);
 
   }
   updateSeatbyId(body): Observable<any>{
@@ -49,6 +49,9 @@ export class SeatingService {
 
   updateSeat(seat:Seat): Observable<Seat>{
     return this.http.put<Seat>(this.UPDATE_ENTIRE_SEAT,seat,httpOptions);
+  }
+  addSeat(seat:Seat) : Observable<Seat>{
+    return this.http.post<Seat>(this.ADD_SEAT, seat, httpOptions);
   }
 }
 
