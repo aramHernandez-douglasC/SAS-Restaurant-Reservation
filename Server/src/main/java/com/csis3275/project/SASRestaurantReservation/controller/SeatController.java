@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.csis3275.project.SASRestaurantReservation.model.Seat;
+import com.csis3275.project.SASRestaurantReservation.model.User;
 import com.csis3275.project.SASRestaurantReservation.repository.SeatRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -45,7 +46,7 @@ public class SeatController {
 		return repository.findAll();
 	}
 
-	@PostMapping(value = "/newSeat", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/newSeat")
 	public ResponseEntity<Seat> saveSeat(@RequestBody Seat seat) throws Throwable {
 		try {
 			if (repository.findById(seat.getId()) == null) {
@@ -55,6 +56,21 @@ public class SeatController {
 			}
 
 		} catch (Exception e) {
+			throw new Exception(e);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+	}
+	
+	@PutMapping("/assign-server")
+	public ResponseEntity<Seat> assignServer (@RequestBody User user, @RequestBody Seat s) throws Throwable{
+		try {
+			if (repository.findById(user.getId()) != null || repository.findById(seat.getId()) != null ) {
+				s.setServerId(user);
+				this.seat = repository.save(seat);								
+				System.out.println("New seat created!");
+				return new ResponseEntity<Seat>(this.seat, HttpStatus.ACCEPTED);
+				}
+		}catch(Exception e) {
 			throw new Exception(e);
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
