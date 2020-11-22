@@ -9,6 +9,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA
 } from "@angular/material/dialog";
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -30,12 +31,9 @@ export class SeatIconComponent implements OnInit {
     .pipe(
       map(result => result.matches),
       shareReplay()
-    );
+    );  
 
-
-  @ViewChild(CanvasComponent) canvasItem: CanvasComponent;
-  
-
+  snackBarMesage: string;
   isAdmin: boolean;
   role: string ;
   name: string;
@@ -45,9 +43,12 @@ export class SeatIconComponent implements OnInit {
   width: number = 800;
   length: number = 500;  
   seats: Seat[];
-
   selectedSeat: Seat;
+  //Flags
   updateRequest: boolean;
+  selected: boolean;
+
+
 
   //------HTML DOM 
 
@@ -57,7 +58,6 @@ export class SeatIconComponent implements OnInit {
   
 
   //------Seat Variables
-  selected: boolean;
   updatedSeat: Seat;
   statusOptions = [
     "dirty",
@@ -107,9 +107,7 @@ export class SeatIconComponent implements OnInit {
     console.log(this.seats);
     this.updateStatusForm = this.fb.group({// employee
       status: null,
-    }); 
-
-    
+    });     
     this.canvas.setRadius(40)
   }
 
