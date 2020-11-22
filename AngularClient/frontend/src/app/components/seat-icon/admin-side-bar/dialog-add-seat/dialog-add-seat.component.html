@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Add a Seat</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="addSeatFormGroup" (ngSubmit)="addNew()">
+        <div class="form-group">
+            <label for="addNewSeatCapacity">Seat Capacity</label>
+            <input formControlName="addNewSeatCapacity" type="number" class="form-control" id="addNewSeatCapacity"
+                placeholder="Set a seat capacity">
+        </div>
+
+
+        <div class="form-group">
+            <label for="addNewSeatStatus">Seat Status</label>
+            <select formControlName="addNewSeatStatus" class="form-control">
+                <option disabled> Select a status for this seat </option>
+                <option *ngFor="let s of statusOptions" [ngValue]="s">{{s}}</option>
+            </select>
+        </div>
+
+        <div id="position-group">
+            <p>Position</p>
+            <div class="form-group">
+                <label for="addNewSeatXPos">X-axis</label>
+                <input formControlName="addNewSeatXPos" type="number" class="form-control" id="addNewSeatXPos"
+                    placeholder="Select a position on the X-axis">
+
+
+
+            </div>
+            <div class="form-group">
+                <label for="addNewSeatYPos">Y-axis</label>
+                <input formControlName="addNewSeatYPos" type="number" class="form-control" id="addNewSeatYPos"
+                    placeholder="Select a position on the X-axis">
+
+            </div>
+        </div>
+        <div id="buttons">
+            <button mat-button (click)="onNoClick()">Cancel</button>
+            <button type="submit" mat-button (click)="addNew()" >Submit</button>
+        </div>
+    </form>
+</mat-dialog-content>

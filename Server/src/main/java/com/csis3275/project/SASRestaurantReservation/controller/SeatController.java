@@ -48,17 +48,17 @@ public class SeatController {
 
 	@PostMapping(value = "/newSeat")
 	public ResponseEntity<Seat> saveSeat(@RequestBody Seat seat) throws Throwable {
-		try {
-			if (repository.findById(seat.getId()) == null) {
+		try {			
 				this.seat = repository.save(seat);
 				System.out.println("New seat created!");
 				return new ResponseEntity<Seat>(this.seat, HttpStatus.ACCEPTED);
-			}
+			
 
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
-		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+		
+		
 	}
 	
 	@PutMapping("/assign-server")

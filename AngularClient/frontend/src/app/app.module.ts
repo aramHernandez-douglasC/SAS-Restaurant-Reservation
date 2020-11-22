@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import { WelcomeUserComponent } from './components/welcomeuser/welcome-user.component';
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
@@ -33,6 +33,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { ErrorComponent } from './components/error/error.component';
 import { AdminSideBarComponent } from './components/seat-icon/admin-side-bar/admin-side-bar.component';
 import { CanvasComponent } from './components/seat-icon/canvas/canvas.component';
+import { NotificationBarComponent } from './components/seat-icon/notification-bar/notification-bar.component';
+import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/dialog-add-seat/dialog-add-seat.component';
 
 
 @NgModule({
@@ -47,7 +49,11 @@ import { CanvasComponent } from './components/seat-icon/canvas/canvas.component'
     
     AdminSideBarComponent,
     
-    CanvasComponent
+    CanvasComponent,
+    
+    NotificationBarComponent,
+    
+    DialogAddSeatComponent
   ],
   imports: [
     HttpClientModule,
@@ -75,9 +81,11 @@ import { CanvasComponent } from './components/seat-icon/canvas/canvas.component'
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule
 
   ],
+  entryComponents: [DialogAddSeatComponent],
   providers: [AuthenticationService, SeatingService, ],
   bootstrap: [AppComponent]
 })
