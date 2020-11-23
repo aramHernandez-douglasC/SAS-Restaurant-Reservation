@@ -1,85 +1,90 @@
 package com.csis3275.project.SASRestaurantReservation.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {
+                "username"
+            }),
+            @UniqueConstraint(columnNames = {
+                "email"
+            })
+    })
 
 public class User {
 
 	@Id
-	@Column(name = "user_id")
-	@GeneratedValue
-	private int id;
-
-	@Column(name = "user_name")
-	private String userName;
-
-	@Column(name = "first_name")
-	private String firstName;
-
-	@Column(name = "last_name")
-	private String lastName;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
+	
+	private String name;
+	
+	private String username;
 
 	@Column(name = "email")
 	private String email;
 
-	@Column(name = "type")
-	private String type;
 
 	@Column(name = "password")
 	private String password;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name="user_roles",
+	joinColumns = @JoinColumn(name="user_id"),
+	inverseJoinColumns = @JoinColumn(name="role_id"))
+	private Set<Role> roles = new HashSet<>();
 
 	public User() {
 
 	}
 
-	public User(String username, String first_name, String last_name, String email, String type, String password) {
-		super();
-		this.userName = username;
-		this.firstName = first_name;
-		this.lastName = last_name;
+	public User(String name, String username, String email, String password) {
+		this.name = name;
+		this.username = username;	
 		this.email = email;
-		this.type = type;
 		this.password = password;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public String getUserName() {
-		return userName;
+		return username;
 	}
 
 	public void setUsername(String username) {
-		this.userName = username;
+		this.username = username;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirst_name(String first_name) {
-		this.firstName = first_name;
+	public void setName(String name) {
+		this.name = name;
 	}
-
-	public String getLast_name() {
-		return lastName;
-	}
-
-	public void setLast_name(String last_name) {
-		this.lastName = last_name;
-	}
-
+	
 	public String getEmail() {
 		return email;
 	}
@@ -88,13 +93,6 @@ public class User {
 		this.email = email;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 	public String getPassword() {
 		return password;
@@ -104,20 +102,12 @@ public class User {
 		this.password = password;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", type=" + type + "]";
+	public Set<Role> getRoles(){
+		return roles;
 	}
 	
-	public String createFullName() {
-		String fullname = this.firstName + this.lastName;
-		return fullname;
-	}
-	public boolean checkIfAdmin() {
-		if(this.getType() == "Admin") {
-			return true;
-		}return false;
-		
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 }

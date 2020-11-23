@@ -61,44 +61,44 @@ public class SeatController {
 		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 	}
 	
-	@PutMapping("/assign-server")
-	public ResponseEntity<Seat> assignServer (@RequestBody User user, @RequestBody Seat s) throws Throwable{
-		try {
-			if (repository.findById(user.getId()) != null || repository.findById(seat.getId()) != null ) {
-				s.setServerId(user);
-				this.seat = repository.save(seat);								
-				System.out.println("New seat created!");
-				return new ResponseEntity<Seat>(this.seat, HttpStatus.ACCEPTED);
-				}
-		}catch(Exception e) {
-			throw new Exception(e);
-		}
-		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-	}
-
-	/**
-	 * DELETE SEAT
-	 * 
-	 * This method looks for the seat id which you want to delete from the database
-	 * depending on the ID specified by the front-end user, it also first looks if
-	 * the id selected exists on the database, and if not it throws a exception
-	 * 
-	 * @throws e: An exception in case there is something wrong with the input or it
-	 *            doesn't exists
-	 * @author Aram Hernandez 300285533
-	 **/
-	@DeleteMapping(value = "/delete-seat")
-	public void deleteSeat(@RequestParam int seatId) throws Throwable {
-		try {
-			if (repository.findById(seatId) != null) {
-				repository.deleteById(seatId);
-				System.out.print("Seat Deleted successfully");
-			}
-		} catch (Exception e) {
-			throw new Exception(e);
-		}
-
-	}
+//	@PutMapping("/assign-server")
+//	public ResponseEntity<Seat> assignServer (@RequestBody User user, @RequestBody Seat s) throws Throwable{
+//		try {
+//			if (repository.findById(user.getId()) != null || repository.findById(seat.getId()) != null ) {
+//				s.setServerId(user);
+//				this.seat = repository.save(seat);								
+//				System.out.println("New seat created!");
+//				return new ResponseEntity<Seat>(this.seat, HttpStatus.ACCEPTED);
+//				}
+//		}catch(Exception e) {
+//			throw new Exception(e);
+//		}
+//		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+//	}
+//
+//	/**
+//	 * DELETE SEAT
+//	 * 
+//	 * This method looks for the seat id which you want to delete from the database
+//	 * depending on the ID specified by the front-end user, it also first looks if
+//	 * the id selected exists on the database, and if not it throws a exception
+//	 * 
+//	 * @throws e: An exception in case there is something wrong with the input or it
+//	 *            doesn't exists
+//	 * @author Aram Hernandez 300285533
+//	 **/
+//	@DeleteMapping(value = "/delete-seat")
+//	public void deleteSeat(@RequestParam int seatId) throws Throwable {
+//		try {
+//			if (repository.findById(seatId) != null) {
+//				repository.deleteById(seatId);
+//				System.out.print("Seat Deleted successfully");
+//			}
+//		} catch (Exception e) {
+//			throw new Exception(e);
+//		}
+//
+//	}
 
 	/**
 	 * 

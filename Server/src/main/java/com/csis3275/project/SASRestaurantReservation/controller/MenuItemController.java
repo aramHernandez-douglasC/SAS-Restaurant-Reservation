@@ -31,7 +31,7 @@ public class MenuItemController {
 	
 	/**Get Mapping to retrieve all menu items.
 	 */
-	
+	@CrossOrigin(origins = "http://localhost:4040")
 	@GetMapping(value = "/items")
 	public Iterable<MenuItem> getAllMenuItems() {
 		return repository.findAll();
