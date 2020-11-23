@@ -53,24 +53,29 @@
                 </div>
 
 
-                <button type="submit">Submit</button>
+                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
 
 
             </form>
 
 
         </div>
-        <button type="button" class="btn btn-primary"> Add a seat </button>
+        
 
     </mat-expansion-panel>
 
     <mat-expansion-panel hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                Menu Options
+               Order
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <p>Coming soon...</p>
+        <p>Display current order details</p>
+        
+        <br>
+        <button>Past orders</button>
+        <!--Insert Dialog box-->
+
     </mat-expansion-panel>
 
     <mat-expansion-panel hideToggle>
@@ -88,7 +93,15 @@
                 Restaurant Layout Options
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <p>Coming soon...</p>
+        <br> 
+        <button id="add-seat-btn" (click)="addNew()" type="button" class="btn btn-primary"> Add a seat </button>
+        <br>
+        <button>Choose Layouts</button>
+        <br>
+        <button>Create Layout</button>
+        <br>
+        <button id="delete-seat-btn" type="button" class="btn btn-danger ">Delete a seat</button>
+        
     </mat-expansion-panel>
 </div>
 <ng-template #noSelectedBlock>
