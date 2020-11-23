@@ -48,6 +48,7 @@ export class DialogAddSeatComponent implements OnInit {
 
     this.service.addSeat(this.seatInfo).subscribe(data=>{
       console.log(data);
+      this.dialogRef.close();
     })
     
 
