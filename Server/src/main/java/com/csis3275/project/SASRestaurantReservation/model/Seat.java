@@ -41,10 +41,6 @@ public class Seat {
 	@ManyToOne
 	private User serverId;
 	
-	@OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "SeatOrder_fk", referencedColumnName = "seat_id")
-	private List<Order> orders;
-	
 
 	public Seat() {
 		super();
@@ -52,7 +48,10 @@ public class Seat {
 
 	
 
-	public Seat(int id, int xPos, int yPos, int capacity, String cleanStatus, User serverId, List<Order> orders) {
+	
+
+
+	public Seat(int id, int xPos, int yPos, int capacity, String cleanStatus, User serverId) {
 		super();
 		this.id = id;
 		this.xPos = xPos;
@@ -60,20 +59,10 @@ public class Seat {
 		this.capacity = capacity;
 		this.cleanStatus = cleanStatus;
 		this.serverId = serverId;
-		this.orders = orders;
 	}
 
 
 
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
 
 
 

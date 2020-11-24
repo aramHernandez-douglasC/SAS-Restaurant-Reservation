@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,18 +21,33 @@ public class Order {
 	
 	@Id
 	@Column(name = "order_id")	
-	private int id;
+	private int id;	
+	
+	static final double TAX = 0.04;
+	/**
+	 * This will be true if order is currently opened or 
+	 * false if it's closed 
+	 * */	
+	@Column(name= "orderStatus")
+	private String orderStatus ;
+	
+	@Column(name="isPayed")
+	private String payed ;
+	
+	@Column(name = "subtotal")
+	private double subtotal;
+	
+	@Column(name = "Total")
+	private double total;
+	
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn(name ="seat_id", referencedColumnName = "seat_id")
+	public Seat seat;
 	
 	@OneToMany(targetEntity = OrderItem.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "order_fk", referencedColumnName = "order_id")
 	private List<OrderItem> orderItem;
-	
-	public Order(int id, List<OrderItem> orderItem) {
-		super();
-		this.id = id;
-		this.orderItem = orderItem;
-	}
-	
+
 	public Order() {}
 
 	public int getId() {
@@ -49,6 +65,51 @@ public class Order {
 	public void setOrderItem(List<OrderItem> orderItem) {
 		this.orderItem = orderItem;
 	}
+
+	
+
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+	public String getPayed() {
+		return payed;
+	}
+
+	public void setPayed(String payed) {
+		this.payed = payed;
+	}
+
+	public double getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal() {
+	
+		double sum = 0;
+		List<OrderItem> listOrder = this.orderItem;
+		for (int i = 0; i < listOrder.size();i++) {
+			listOrder.get(i).setSubtotal();
+			sum += listOrder.get(i).getSubtotal();
+			
+		}
+		this.subtotal = sum;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal() {
+		this.total = (this.subtotal * TAX) + this.subtotal;
+	}
+	
+	
+	
 
 	
 	

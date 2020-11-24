@@ -56,40 +56,38 @@ public class OrderController {
 	@Autowired
 	OrderItemRepository oItRepo;
 
-	@PostMapping("/placeOrder")
-	public void placeOrder(@RequestBody Seat seat) {
-		seatRepo.save(seat);
-		// menuRepo.save(menu);
+	/**
+	 * This code will allow the front-end user to update and create 
+	 * an order **/
+	@PostMapping("/order/placeOrder")
+	public void placeOrder(@RequestBody Order order) {		
+		this.updateOrder(order);
 	}
 
-	@DeleteMapping("/delete-single-item")
-	public void deleteSingleOrder(@RequestParam int id) {
-		this.orderItem = this.oItRepo.findById(id).get();
-		oItRepo.delete(this.orderItem);
-		out.println("Item deleted to:" + this.orderItem.getId());
-
-	}
-
-	@PutMapping("/update-orderItem-quantity")
-	public void updateQuantity(@RequestParam int id, @RequestParam int qty) throws Throwable {
-
-		this.orderItem = this.oItRepo.findById(id).get();
-		try {
-			if (qty > 0) {
-				this.orderItem.setQuantity(qty);
-				this.oItRepo.save(this.orderItem);
-			} else {
-				out.println("Quantity cannot be less or equal 0");
-			}
-		}catch(Exception e) {
-			out.println(new Exception(e));
-		}
+	@DeleteMapping("/order/order-item/delete")
+	public void deleteSingleOrder(@RequestBody Order order, @RequestParam int itemId) {
+		this.oItRepo.deleteItem(itemId);		
+		this.updateOrder(order);		
 
 	}
 
-	@GetMapping("/get-all/orders")
-	public List<Seat> findAllOrders() {
-		return seatRepo.findAll();
+
+	@GetMapping("/order/order-item/get-single")
+	public OrderItem findOrder(@RequestParam int id) {
+		return oItRepo.findById(id).get();
+	}
+	
+
+	@GetMapping("/order/get-all")
+	public List<Order> findAllOrders() {
+		return orderRepo.findAll();
+	}
+	
+	public void updateOrder(Order order) {
+		this.order = order;
+		this.order.setSubtotal();
+		this.order.setTotal();		
+		this.orderRepo.save(this.order);	
 	}
 
 }
