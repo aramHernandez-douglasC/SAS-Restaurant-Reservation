@@ -67,8 +67,7 @@ public class OrderController {
 	@DeleteMapping("/order/order-item/delete")
 	public void deleteSingleOrder(@RequestBody Order order, @RequestParam int itemId) {
 		this.oItRepo.deleteItem(itemId);		
-		this.updateOrder(order);		
-
+		
 	}
 
 
