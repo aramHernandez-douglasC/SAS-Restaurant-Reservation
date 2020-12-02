@@ -1,5 +1,6 @@
-import { kill } from 'process';
-import { element } from 'protractor';
+
+import { utils } from 'protractor';
+import { reduce } from 'rxjs/operators';
 import { Seat } from './Seat';
 
 export class Canvas {
@@ -10,16 +11,15 @@ export class Canvas {
   private width: number; //done
   private length: number; //done
   private _RADIUS: number;//done  
- 
+
   private selectedSeat: Seat;//done  
   private elements: Seat[]; //done 
-  
-  seat = {
-    x : 0,
-    y: 0,
-    width: 0
 
-  }
+  xMouse: any;
+  yMouse: any;
+
+
+
 
   //------gEttERS & SetTerS----------
   getWidth() { return this.width; }
@@ -58,80 +58,118 @@ export class Canvas {
 
   canvasfill() {
     this.canvas.width = this.width;
-    this.canvas.height = this.length;   
-    this.elements.forEach(s => {
-      var color;
-      switch (s.cleanStatus) {
-        case "clean":
-          color = "#0C755B";
-          break;
+    this.canvas.height = this.length;
+    // this.elements.forEach(s => {
+    //   var color;
+    //   switch (s.cleanStatus) {
+    //     case "clean":
+    //       color = "#0C755B";
+    //       break;
 
-        case "dirty":
-          color = "#F3AF42";
-          break;
+    //     case "dirty":
+    //       color = "#F3AF42";
+    //       break;
 
 
-        case "occupied":
-          color = "#F2293A";
-          break;
-      }
-      this.draw(s.xPos, s.yPos, color);
-      const rect = this.canvas.getBoundingClientRect();
+    //     case "occupied":
+    //       color = "#F2293A";
+    //       break;
 
-      this.canvas.addEventListener("click", (event) => {
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        //Click Item
-        if (this.clickItem(x, s.xPos, y, s.yPos)) {
-          this.selectedSeat = s;
-        }
+    //     default:
+    //       color = "#FFFFFF"
+    //       break;
+    //   }
 
-      });
-      //this.dragAndDrop(s);
+    //   //Check why is drawing items weird
 
+    //   this.draw(s.xPos, s.yPos, color);
+    //   const rect = this.canvas.getBoundingClientRect();
+
+    //   this.canvas.addEventListener("click", (event) => {
+    //     const x = event.clientX - rect.left;
+    //     const y = event.clientY - rect.top;
+
+    //     //console.log("x: " +  x + " y: " + y );
+    //     //Click Item
+    //     if (this.clickItem(x, s.xPos, y, s.yPos)) {
+    //       this.selectedSeat = s;
+    //     }
+    //   });
+
+
+
+    // });
+
+    const seat = {
+      xPos: 100,
+      yPos: 100,
+      color: "red"
+    }
+
+
+    this.draw(seat.xPos, seat.yPos, seat.color);
+    this.canvas.addEventListener("mousedown", event => {
+      this.mouseDown(seat, event);
+      this.mouseMove(true);
 
     });
+    this.canvas.addEventListener("mouseup", event => {
+      this.mouseUp();
+      this.mouseMove(false);
+
+    });
+
   }
 
-  // dragAndDrop(element) {
-  //   const rect = this.canvas.getBoundingClientRect();
-  //   var mousedown: boolean;
-
-  //   this.canvas.addEventListener("mousedown", (event) => {
-  //     const x = event.clientX - rect.left;
-  //     const y = event.clientY - rect.top;     
-  //     if (this.clickItem(x, element.xPos, y, element.yPos)) {
-  //       this.ctx.clearRect(0, 0, this.width, this.length);
-  //       this.canvasfill()
-  //       mousedown = true;
-  //       console.log(mousedown);
-        
-  //     }
-  //   })
-
-  //   this.canvas.addEventListener("mouseup", (event) => {
-  //     const x = event.clientX - rect.left;
-  //     const y = event.clientY - rect.top;
-  //     if (this.clickItem(x, element.xPos, y, element.yPos)) {
-  //       mousedown = false
-  //       console.log(mousedown);
-  //     }
-
-  //   })
-    
+  mouseDown(element, event) {
+    if (this.clickItem(event.clientX, element.xPos, event.clientY,
+      element.yPos)) {
+      this.canvas.style.backgroundColor = "#4b6a94";
 
 
-  // }
+    }
 
+  }
+
+
+  mouseUp() {
+    this.canvas.style.backgroundColor = "#1f2d41";
+
+  }
+
+  mouseMove(move: boolean) {
+
+    let x;
+    let y;
+    this.canvas.addEventListener("mousemove", event => {
+      if (move) {
+        this.ctx.clearRect(0, 0, this.width, this.length);
+        x = event.clientX;
+        y = event.clientY;
+        this.draw(x, y, "white");
+      }
+      else{
+        this.draw(x,y,"black");
+      }
+
+    })
+
+
+  }
   draw(xPos, yPos, color) {
 
 
     this.ctx.beginPath();
+    //DEBUG:  console.log ("x = " + xPos + " y = " +yPos);
     this.ctx.arc(xPos, yPos, this._RADIUS, 0, Math.PI * 2, false);
     this.ctx.fillStyle = color;
     this.ctx.fill();
     this.ctx.closePath();
 
+  }
+
+  drawXandYLines() {
+    this.ctx.beginPath
   }
 
 
@@ -156,11 +194,12 @@ export class Canvas {
     let area = (Math.PI) * (Math.pow(this._RADIUS, 2));
 
     if (distance < this._RADIUS && distance < area) {
-      console.log(distance);
+      //DEBUG: console.log(distance);
       return true;
     }
     return false;
   }
+
 
 
 
@@ -174,13 +213,4 @@ export class Canvas {
       }
     }
   }
-
-
-
-
-
-
-
-
-
 }
