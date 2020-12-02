@@ -59,65 +59,64 @@ export class Canvas {
   canvasfill() {
     this.canvas.width = this.width;
     this.canvas.height = this.length;
-    // this.elements.forEach(s => {
-    //   var color;
-    //   switch (s.cleanStatus) {
-    //     case "clean":
-    //       color = "#0C755B";
-    //       break;
-
-    //     case "dirty":
-    //       color = "#F3AF42";
-    //       break;
-
-
-    //     case "occupied":
-    //       color = "#F2293A";
-    //       break;
-
-    //     default:
-    //       color = "#FFFFFF"
-    //       break;
-    //   }
-
-    //   //Check why is drawing items weird
-
-    //   this.draw(s.xPos, s.yPos, color);
-    //   const rect = this.canvas.getBoundingClientRect();
-
-    //   this.canvas.addEventListener("click", (event) => {
-    //     const x = event.clientX - rect.left;
-    //     const y = event.clientY - rect.top;
-
-    //     //console.log("x: " +  x + " y: " + y );
-    //     //Click Item
-    //     if (this.clickItem(x, s.xPos, y, s.yPos)) {
-    //       this.selectedSeat = s;
-    //     }
-    //   });
+     this.elements.forEach(s => {
+       var color;
+       switch (s.cleanStatus) {
+         case "clean":
+           color = "#0C755B";
+           break;
+     case "dirty":
+           color = "#F3AF42";
+           break;
 
 
+         case "occupied":
+           color = "#F2293A";
+           break;
+
+         default:
+           color = "#FFFFFF"
+           break;
+       }
+
+       //Check why is drawing items weird
+
+       this.draw(s.xPos, s.yPos, color);
+       const rect = this.canvas.getBoundingClientRect();
+
+       this.canvas.addEventListener("click", (event) => {
+         const x = event.clientX - rect.left;
+         const y = event.clientY - rect.top;
+
+         //console.log("x: " +  x + " y: " + y );
+         //Click Item
+         if (this.clickItem(x, s.xPos, y, s.yPos)) {
+           this.selectedSeat = s;
+         }
+       });
+
+
+
+     });
+
+    // const seat = {
+    //   xPos: 100,
+    //   yPos: 100,
+    //   color: "red"
+    // }
+
+
+    // this.draw(seat.xPos, seat.yPos, seat.color);
+    // this.canvas.addEventListener("mousedown", event => {
+    //   this.mouseDown(seat, event);
+    //   this.mouseMove(true);
 
     // });
+    // this.canvas.addEventListener("mouseup", event => {
+    //   this.mouseUp();
+    //   this.mouseMove(false);
 
-    const seat = {
-      xPos: 100,
-      yPos: 100,
-      color: "red"
-    }
-
-
-    this.draw(seat.xPos, seat.yPos, seat.color);
-    this.canvas.addEventListener("mousedown", event => {
-      this.mouseDown(seat, event);
-      this.mouseMove(true);
-
-    });
-    this.canvas.addEventListener("mouseup", event => {
-      this.mouseUp();
-      this.mouseMove(false);
-
-    });
+    // });
 
   }
 
