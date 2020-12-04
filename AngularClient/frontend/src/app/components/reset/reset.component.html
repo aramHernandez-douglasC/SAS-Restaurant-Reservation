@@ -1,0 +1,23 @@
+<form [formGroup]="resetForm" (ngSubmit)="onReset()">
+        <div class="form-group">
+      <label for="email">Email address</label>
+              <input type="email" class="form-control" formControlName="email"
+                     [ngClass]="{'is-invalid': reset && resetForm.controls.email.errors}">
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && resetForm.controls.password.errors }" />
+              <div *ngIf="submitted && resetForm.controls.password.errors" class="invalid-feedback">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && resetForm.controls.confirmPassword.errors }" />
+              <div *ngIf="submitted && resetForm.controls.confirmPassword.errors" class="invalid-feedback">
+                <div *ngIf="resetForm.controls.confirmPassword.errors.required">Confirm Password is required</div>
+                <div *ngIf="resetForm.controls.confirmPassword.errors.mustMatch">Passwords must match</div>
+              </div>
+            </div>
+            <button type="submit" class="btn custom-button">Reset</button>
+          </form>
+          <div *ngIf="passwordMatch">Incorrect email or passwords do not match</div>

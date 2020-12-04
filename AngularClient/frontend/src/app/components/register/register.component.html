@@ -1,0 +1,29 @@
+<form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" formControlName="username" id="username">
+            </div>
+            <div class="form-group">
+              <label for="firstname">First Name</label>
+              <input type="text" class="form-control" formControlName="firstname" id="firstname">
+            </div>
+            <div class="form-group">
+              <label for="lastname">Last Name</label>
+              <input type="text" class="form-control" formControlName="lastname" id="lastname">
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" formControlName="email"
+                     [ngClass]="{'is-invalid': registered && registerForm.controls.email.errors}">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" formControlName="password"
+                     [ngClass]="{'is-invalid': registered && loginForm.controls.email.errors}">
+            </div>
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="adminRegister" [(ngModel)]="isAdmin" [ngModelOptions]="{standalone: true}">
+              <label class="form-check-label" for="adminRegister">Admin</label>
+            </div>
+            <button type="submit" class="btn custom-button">Register</button>
+          </form>

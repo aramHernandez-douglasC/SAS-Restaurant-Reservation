@@ -31,20 +31,20 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
-    this.registerForm = this.formBuilder.group({
-      username: '',
-      firstname: '',
-      lastname: '',
-      email: ['', Validators.required],
-      password : ['', Validators.required],
-    });
-    this.resetForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
-    }, {
-      validator: MustMatch('password', 'confirmPassword')
-    });
+    // this.registerForm = this.formBuilder.group({
+    //   username: '',
+    //   firstname: '',
+    //   lastname: '',
+    //   email: ['', Validators.required],
+    //   password : ['', Validators.required],
+    // });
+    // this.resetForm = this.formBuilder.group({
+    //   email: ['', [Validators.required, Validators.email]],
+    //   password: ['', Validators.required],
+    //   confirmPassword: ['', Validators.required]
+    // }, {
+    //   validator: MustMatch('password', 'confirmPassword')
+    // });
   }
   onSubmit(): void {
     this.submitted = true;
@@ -68,54 +68,45 @@ export class LoginComponent implements OnInit {
 
   }
 
-  onRegister(): void{
-    this.registered = true;
-
-    if (this.registerForm.invalid) {
-      return;
-    }
-    this.user.email = this.registerForm.value.email;
-    this.user.firstName = this.registerForm.value.firstname;
-    this.user.lastName = this.registerForm.value.lastname;
-    this.user.userName = this.registerForm.value.username;
-    this.user.password = this.registerForm.value.password;
-    this.user.type = this.isAdmin ? 'Admin' : 'Employee';
-
-    this.service.register(this.user)
-      .subscribe((response) => {
-        console.log(response);
-      });
-    this.router.navigate(['/login']);
-  }
+  // onRegister(): void{
+  //   this.registered = true;
+  //
+  //   if (this.registerForm.invalid) {
+  //     return;
+  //   }
+  //   this.user.email = this.registerForm.value.email;
+  //   this.user.firstName = this.registerForm.value.firstname;
+  //   this.user.lastName = this.registerForm.value.lastname;
+  //   this.user.userName = this.registerForm.value.username;
+  //   this.user.password = this.registerForm.value.password;
+  //   this.user.type = this.isAdmin ? 'Admin' : 'Employee';
+  //
+  //   this.service.register(this.user)
+  //     .subscribe((response) => {
+  //       console.log(response);
+  //     });
+  //   this.router.navigate(['/login']);
+  // }
     // console.log(body);
 
-  onReset(): void{
-    this.reset = true;
-
-    if (this.resetForm.invalid) {
-      this.passwordMatch = true;
-      return;
-    }
-    const body = {
-      email: this.resetForm.value.email,
-      password: this.resetForm.value.password,
-    };
-
-    this.service.reset(body)
-      .subscribe((response) => {
-        console.log(response);
-      });
-    this.router.navigate(['/login']);
-  }
-  passwordConfirming(): boolean {
-    if (this.resetForm.value.password === this.resetForm.value.confirm_password) {
-      console.log('Reached here');
-      return true;
-    }
-      else{
-        return false;
-    }
-  }
+  // onReset(): void{
+  //   this.reset = true;
+  //
+  //   if (this.resetForm.invalid) {
+  //     this.passwordMatch = true;
+  //     return;
+  //   }
+  //   const body = {
+  //     email: this.resetForm.value.email,
+  //     password: this.resetForm.value.password,
+  //   };
+  //
+  //   this.service.reset(body)
+  //     .subscribe((response) => {
+  //       console.log(response);
+  //     });
+  //   this.router.navigate(['/login']);
+  // }
 }
 export function MustMatch(controlName: string, matchingControlName: string): any
 {

@@ -19,10 +19,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import { WelcomeUserComponent } from './components/welcomeuser/welcome-user.component';
-
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
 import { MenuComponent } from './components/menu/menu.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -33,6 +31,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { ErrorComponent } from './components/error/error.component';
 import { AdminSideBarComponent } from './components/seat-icon/admin-side-bar/admin-side-bar.component';
 import { CanvasComponent } from './components/seat-icon/canvas/canvas.component';
+import {httpInterceptorProviders} from "./auth/authinterceptor";
+import { AuthcontainerComponent } from './components/authcontainer/authcontainer.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ResetComponent } from './components/reset/reset.component';
 
 
 @NgModule({
@@ -44,10 +46,11 @@ import { CanvasComponent } from './components/seat-icon/canvas/canvas.component'
     WelcomeUserComponent,
     MenuComponent,
     ErrorComponent,
-    
     AdminSideBarComponent,
-    
-    CanvasComponent
+    CanvasComponent,
+    AuthcontainerComponent,
+    RegisterComponent,
+    ResetComponent
   ],
   imports: [
     HttpClientModule,
@@ -55,13 +58,11 @@ import { CanvasComponent } from './components/seat-icon/canvas/canvas.component'
     NgxWebstorageModule.forRoot(),
     AppRoutingModule,
     AlertModule.forRoot(),
-
     //Forms Modules
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     LayoutModule,
-
     //Angular-Component modules
     MatToolbarModule,
     MatButtonModule,
@@ -78,7 +79,7 @@ import { CanvasComponent } from './components/seat-icon/canvas/canvas.component'
     MatProgressSpinnerModule
 
   ],
-  providers: [AuthenticationService, SeatingService, ],
+  providers: [AuthenticationService, SeatingService, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
