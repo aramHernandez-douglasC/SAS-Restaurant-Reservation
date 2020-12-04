@@ -3,7 +3,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background: url("src/assets/images/reservation-background.jpg");
+  background-size: cover;
 }
+.mat-card{
+  width: 40%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  background-color: #DFDFDF;
+}
+
 .mat-card-title{
-  font-size: 2em;
+  font-size: 3em;
+  padding: 10px;
 }
