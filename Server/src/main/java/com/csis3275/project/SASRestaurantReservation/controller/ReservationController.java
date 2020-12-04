@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import com.csis3275.project.SASRestaurantReservation.model.Reservation;
@@ -32,6 +33,11 @@ public class ReservationController {
 	@GetMapping(value = "/reservations")
 	public Iterable<Reservation> getAllMenuItems() {
 		return repository.findAll();
+	}
+	
+	@GetMapping(value="/reservations/timings")
+	public Iterable<String> getTimings(@RequestParam String reservationDate){
+		return repository.findReservationsByDate(reservationDate);
 	}
 	
 	/**Post Mapping to add new reservation.

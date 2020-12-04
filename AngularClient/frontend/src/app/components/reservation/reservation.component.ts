@@ -20,20 +20,29 @@ export class ReservationComponent implements OnInit {
   reservationTimeSource = ['4:00pm', '5:00pm', '6:00pm', '7:00pm', '8:00pm', '9:00pm'];
   reservationTime: string;
   newReservation = new Reservation();
+  openTimings = [];
   constructor(private service: ReservationService, private router: Router, public datepipe: DatePipe) { }
 
   ngOnInit(): void {
   }
 
   setNoGuests(num): void{
-       this.numOfPeople = num;
+       this.numOfPeople = num.value;
   }
   setReservationTime(time): void{
-    this.reservationTime = time;
+    this.reservationTime = time.value;
   }
   setReservationDate(date): void{
-    this.reservationDate = date;
+    console.log('Reached');
+    console.log(date.value);
+    this.reservationDate = date.value;
     this.reservationDateString = this.datepipe.transform(this.reservationDate, 'dd-MM-yyyy');
+    this.service.getTimings(this.reservationDateString).subscribe(data => {
+      this.openTimings = data;
+      console.log(this.openTimings);
+      this.openTimings = this.reservationTimeSource.filter(el => !this.openTimings.includes(el));
+      console.log(this.openTimings);
+    });
     console.log(this.reservationDateString);
   }
 
@@ -48,6 +57,7 @@ export class ReservationComponent implements OnInit {
     this.newReservation.reservationTime = this.reservationTime;
     console.log(this.newReservation);
     this.service.saveReservation(this.newReservation).subscribe(data => {
+      alert('Your table on ' + this.newReservation.reservationDate + ' at ' + this.newReservation.reservationTime + ' has been reserved. Thank you ' + this.newReservation.customerName);
       console.log(data);
       this.newReservation = data;
       this.router.navigate(['/welcome']);

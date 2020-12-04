@@ -2,10 +2,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #0A0A0A;
+  background-image: url("src/assets/images/menu_backgroound.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.menu{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .table-head{
-  color: #808F85;
+  color: #0A0A0A;
   text-align: center;
   font-size: 2em;
 }
@@ -17,17 +25,19 @@ table{
   width: 100%;
 }
 .mat-cell {
-  color: #F2E9DC;
+  color: #0A0A0A;
   text-align: center;
+  font-weight: bold;
   font-size: 1.2em;
   border-color: transparent;
 }
 
 .th-center{
   text-align: center;
-  color: #F2E9DC;
+  color: #0A0A0A;
   text-align: center;
   font-size: 1.5em;
+  font-weight: bolder;
 }
 mat-card{
   width: 100%;

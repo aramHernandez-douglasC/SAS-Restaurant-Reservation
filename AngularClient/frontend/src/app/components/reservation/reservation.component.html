@@ -26,7 +26,7 @@
       <p>
         <mat-form-field>
       <mat-label>Date</mat-label>
-      <input matInput [matDatepicker]="myPicker" [(ngModel)]="reservationDate" placeholder="date" name="reservationDate" (change)="setReservationDate($event.value)">
+      <input matInput [matDatepicker]="myPicker" [(ngModel)]="reservationDate" placeholder="date" name="reservationDate" (dateChange)="setReservationDate($event)">
       <mat-datepicker-toggle  matSuffix [for]="myPicker"></mat-datepicker-toggle>
       <mat-datepicker #myPicker></mat-datepicker>
     </mat-form-field>
@@ -34,7 +34,7 @@
       <p>
         <mat-form-field>
           <mat-label>Guests</mat-label>
-        <mat-select placeholder="Guests" [(ngModel)]="numOfPeople" name="numOfPeople" required (change)="setNoGuests($event.value)">
+        <mat-select placeholder="Guests" [(ngModel)]="numOfPeople" name="numOfPeople" required (change)="setNoGuests($event)">
           <mat-option [value] = "2">2</mat-option>
           <mat-option [value] = "4">4</mat-option>
           <mat-option [value] = "6">6</mat-option>
@@ -44,8 +44,8 @@
       <p>
         <mat-form-field>
           <mat-label>Time</mat-label>
-          <mat-select placeholder="Select time" [(ngModel)] ="reservationTime" name ="reservationTime" required (change)="setReservationTime($event.value)">
-            <mat-option *ngFor="let time of reservationTimeSource"  [value]=time>
+          <mat-select placeholder="Select time" [(ngModel)] ="reservationTime" name ="reservationTime" required (change)="setReservationTime($event)">
+            <mat-option *ngFor="let time of openTimings"  [value]=time>
               {{time}}
             </mat-option>
           </mat-select>
