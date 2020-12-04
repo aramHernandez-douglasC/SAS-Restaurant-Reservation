@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
+import {ReservationService} from '../../service/reservation-service';
+import {Reservation} from '../../model/Reservation';
+import {Router} from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-reservation',
@@ -8,15 +12,45 @@ import {FormControl} from '@angular/forms';
 })
 export class ReservationComponent implements OnInit {
   customerName  =  '';
-  timeSource: string[] =  ['4:00pm', '5:00pm', '6:00pm', '7:00pm', '8:00pm', '9:00pm'];
   customerEmail = '';
-  customerNumber = '';
-  date  =  new  FormControl(new  Date());
-  constructor() { }
+  customerPhone = '';
+  reservationDate  =  new  Date();
+  reservationDateString: string;
+  numOfPeople: number;
+  reservationTimeSource = ['4:00pm', '5:00pm', '6:00pm', '7:00pm', '8:00pm', '9:00pm'];
+  reservationTime: string;
+  newReservation = new Reservation();
+  constructor(private service: ReservationService, private router: Router, public datepipe: DatePipe) { }
 
   ngOnInit(): void {
   }
+
+  setNoGuests(num): void{
+       this.numOfPeople = num;
+  }
+  setReservationTime(time): void{
+    this.reservationTime = time;
+  }
+  setReservationDate(date): void{
+    this.reservationDate = date;
+    this.reservationDateString = this.datepipe.transform(this.reservationDate, 'dd-MM-yyyy');
+    console.log(this.reservationDateString);
+  }
+
   public  reserve(): void{
     /* Typically this method will be used to send the contact form to a server to save it*/
+
+    this.newReservation.customerName = this.customerName;
+    this.newReservation.customerEmail = this.customerEmail;
+    this.newReservation.customerPhone = this.customerPhone;
+    this.newReservation.numOfPeople = this.numOfPeople;
+    this.newReservation.reservationDate = this.datepipe.transform(this.reservationDate, 'dd-MM-yyyy');
+    this.newReservation.reservationTime = this.reservationTime;
+    console.log(this.newReservation);
+    this.service.saveReservation(this.newReservation).subscribe(data => {
+      console.log(data);
+      this.newReservation = data;
+      this.router.navigate(['/welcome']);
+    });
   }
 }

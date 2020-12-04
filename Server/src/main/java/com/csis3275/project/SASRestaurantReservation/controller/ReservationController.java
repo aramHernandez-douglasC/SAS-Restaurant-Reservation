@@ -39,9 +39,19 @@ public class ReservationController {
 	
 	@PostMapping(value = "/reservation/new", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Reservation> saveMenuItem(@RequestBody Reservation res) throws Throwable {
+		System.out.println("Trying to add reservation with :" +res.getCustomerName());
+		System.out.println("Trying to add reservation with :" +res.getCustomerEmail());
+		System.out.println("Trying to add reservation with :" +res.getCustomerPhone());
+		System.out.println("Trying to add reservation with :" +res.getNumOfPeople());
+		System.out.println("Trying to add reservation with :" +res.getReservationDate());
+		System.out.println("Trying to add reservation with :" +res.getReservationTime());
+		System.out.println("Trying to add reservation with :" +res.getId());
+		
 		try {
-			if (repository.findById(res.getId()) == null) {
-				this.reservation = repository.save(reservation);
+			if (repository.findByCustomerEmail(res.getCustomerEmail()) == null) {
+				System.out.println("New reservation");
+				this.reservation = repository.save(res);
+				System.out.println("From repo: "+ this.reservation.getCustomerName());
 				System.out.println("New Item inserted!");
 				return new ResponseEntity<Reservation>(this.reservation, HttpStatus.ACCEPTED);
 			}

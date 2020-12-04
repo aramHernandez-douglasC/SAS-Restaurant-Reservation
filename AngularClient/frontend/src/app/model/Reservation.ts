@@ -1,7 +1,9 @@
 export class Reservation{
   id: number;
   customerName: string;
-  reservationTime: Date;
-  noCustomers: number;
-  seatId: number;
+  customerEmail: string;
+  customerPhone: string;
+  reservationDate: string;
+  reservationTime: string;
+  numOfPeople: number;
 }

@@ -19,8 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name = "RESERVATIONS")
-public class Reservation {
-	
+public class Reservation {	
 	@Id
 	@Column(name = "customer_id")
 	@GeneratedValue
@@ -35,8 +34,11 @@ public class Reservation {
 	@Column(name = "customer_phone")
 	private String customerPhone;
 
+	@Column(name = "reservation_date")
+	private String reservationDate;
+	
 	@Column(name = "reservation_time")
-	private Date reservationTime;
+	private String reservationTime;
 	
 	@Column(name = "numberOfPeople")
 	private String numOfPeople;
@@ -51,12 +53,20 @@ public class Reservation {
 		this.customerName = name;
 	}
 	
-	public Date getReservationTime() {
+	public String getReservationTime() {
 		return reservationTime;
 	}
+	
+	public String getReservationDate() {
+		return reservationDate;
+	}
 
-	public void setReservationTime(Date time) {
+	public void setReservationTime(String time) {
 		this.reservationTime = time;
+	}
+	
+	public void setReservationDate(String date) {
+		this.reservationDate = date;
 	}
 	
 	public String getNumOfPeople() {
@@ -85,6 +95,4 @@ public class Reservation {
 	public Integer getId() {
 		return id;
 	}
-	
-
 }

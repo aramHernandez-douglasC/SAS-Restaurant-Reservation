@@ -38,6 +38,8 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
 import {MatNativeDateModule} from '@angular/material/core';
+import {ReservationService} from './service/reservation-service';
+import {DatePipe} from '@angular/common';
 
 
 @NgModule({
@@ -88,7 +90,7 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatNativeDateModule
   ],
   entryComponents: [DialogAddSeatComponent],
-  providers: [AuthenticationService, SeatingService, ],
+  providers: [AuthenticationService, SeatingService, ReservationService, DatePipe ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
