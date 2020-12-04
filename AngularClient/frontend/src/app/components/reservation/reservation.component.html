@@ -1,0 +1,60 @@
+<div class="wrapper">
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Reservation Form</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form>
+      <p>
+      <mat-form-field>
+        <mat-label>Customer Name</mat-label>
+        <input  matInput  placeholder="Name" [(ngModel)]="customerName"  name="customerName"  required>
+      </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input  matInput  placeholder="Contact Name" [(ngModel)]="customerEmail"  name="contactEmail"  required>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Contact Number</mat-label>
+          <input  matInput  placeholder="Contact Name" [(ngModel)]="customerPhone"  name="customerNumber"  required>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="myPicker" [(ngModel)]="reservationDate" placeholder="date" name="reservationDate" (dateChange)="setReservationDate($event)">
+      <mat-datepicker-toggle  matSuffix [for]="myPicker"></mat-datepicker-toggle>
+      <mat-datepicker #myPicker></mat-datepicker>
+    </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Guests</mat-label>
+        <mat-select placeholder="Guests" [(ngModel)]="numOfPeople" name="numOfPeople" required (change)="setNoGuests($event)">
+          <mat-option [value] = "2">2</mat-option>
+          <mat-option [value] = "4">4</mat-option>
+          <mat-option [value] = "6">6</mat-option>
+        </mat-select>
+      </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Time</mat-label>
+          <mat-select placeholder="Select time" [(ngModel)] ="reservationTime" name ="reservationTime" required (change)="setReservationTime($event)">
+            <mat-option *ngFor="let time of openTimings"  [value]=time>
+              {{time}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button  mat-raised-button (click)="reserve()"  color="primary">Reserve</button>
+  </mat-card-actions>
+</mat-card>
+</div>

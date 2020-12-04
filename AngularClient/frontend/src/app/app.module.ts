@@ -19,6 +19,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import { WelcomeUserComponent } from './components/welcomeuser/welcome-user.component';
+<<<<<<< HEAD
+=======
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+>>>>>>> c3aba0755c79754bfc096b4d16e587a162c3aa60
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MenuComponent } from './components/menu/menu.component';
@@ -31,10 +35,23 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { ErrorComponent } from './components/error/error.component';
 import { AdminSideBarComponent } from './components/seat-icon/admin-side-bar/admin-side-bar.component';
 import { CanvasComponent } from './components/seat-icon/canvas/canvas.component';
+<<<<<<< HEAD
 import {httpInterceptorProviders} from "./auth/authinterceptor";
 import { AuthcontainerComponent } from './components/authcontainer/authcontainer.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ResetComponent } from './components/reset/reset.component';
+=======
+import { NotificationBarComponent } from './components/seat-icon/notification-bar/notification-bar.component';
+import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/dialog-add-seat/dialog-add-seat.component';
+import { ReservationComponent } from './components/reservation/reservation.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSelectModule} from '@angular/material/select';
+import {MatNativeDateModule} from '@angular/material/core';
+import {ReservationService} from './service/reservation-service';
+import {DatePipe} from '@angular/common';
+import {MatCardModule} from '@angular/material/card';
+
+>>>>>>> c3aba0755c79754bfc096b4d16e587a162c3aa60
 
 
 @NgModule({
@@ -48,9 +65,15 @@ import { ResetComponent } from './components/reset/reset.component';
     ErrorComponent,
     AdminSideBarComponent,
     CanvasComponent,
+<<<<<<< HEAD
     AuthcontainerComponent,
     RegisterComponent,
     ResetComponent
+=======
+    NotificationBarComponent,
+    DialogAddSeatComponent,
+    ReservationComponent
+>>>>>>> c3aba0755c79754bfc096b4d16e587a162c3aa60
   ],
   imports: [
     HttpClientModule,
@@ -58,12 +81,22 @@ import { ResetComponent } from './components/reset/reset.component';
     NgxWebstorageModule.forRoot(),
     AppRoutingModule,
     AlertModule.forRoot(),
+<<<<<<< HEAD
     //Forms Modules
+=======
+
+    // Forms Modules
+>>>>>>> c3aba0755c79754bfc096b4d16e587a162c3aa60
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     LayoutModule,
+<<<<<<< HEAD
     //Angular-Component modules
+=======
+
+    // Angular-Component modules
+>>>>>>> c3aba0755c79754bfc096b4d16e587a162c3aa60
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -76,10 +109,19 @@ import { ResetComponent } from './components/reset/reset.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatProgressSpinnerModule
-
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatCardModule
   ],
+<<<<<<< HEAD
   providers: [AuthenticationService, SeatingService, httpInterceptorProviders],
+=======
+  entryComponents: [DialogAddSeatComponent],
+  providers: [AuthenticationService, SeatingService, ReservationService, DatePipe ],
+>>>>>>> c3aba0755c79754bfc096b4d16e587a162c3aa60
   bootstrap: [AppComponent]
 })
 export class AppModule { }

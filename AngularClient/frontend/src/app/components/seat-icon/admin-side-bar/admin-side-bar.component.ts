@@ -1,8 +1,10 @@
+import { DialogAddSeatComponent } from './dialog-add-seat/dialog-add-seat.component';
 import { CanvasComponent } from '../canvas/canvas.component';
 import { Inject, Component, OnInit, Injectable, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SeatingService } from '../../../service/seating.service';
 import { Seat } from '../../../model/Seat';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-admin-side-bar',
@@ -12,6 +14,9 @@ import { Seat } from '../../../model/Seat';
 
 
 export class AdminSideBarComponent implements OnInit {
+
+  //FLAGS
+  addSeat: boolean;
 
   adminFormGroup: FormGroup;
   xValue:number
@@ -35,7 +40,7 @@ export class AdminSideBarComponent implements OnInit {
   constructor(    
     private service: SeatingService,
     private fb: FormBuilder,
-    
+    private dialog : MatDialog    
     ) {
     
     
@@ -61,9 +66,7 @@ export class AdminSideBarComponent implements OnInit {
 
    /***
    * This is the submit method for the ADMIN
-   */
-
-  
+   */ 
   
 
   submitAdminSeatUpdate() {
@@ -86,10 +89,7 @@ export class AdminSideBarComponent implements OnInit {
       
       this.canvas.updateItem(data);    
       
-    })
-
-    
-         
+    })   
 
   }
 
@@ -104,6 +104,10 @@ export class AdminSideBarComponent implements OnInit {
     this.ySpan = document.querySelector("#y-lab");
     this.xSpan.innerHTML = this.adminFormGroup.value.adminXRange;
     this.ySpan.innerHTML = this.adminFormGroup.value.adminYRange;
+  }
+
+  addNew(){
+    this.dialog.open(DialogAddSeatComponent);
   }
 
   

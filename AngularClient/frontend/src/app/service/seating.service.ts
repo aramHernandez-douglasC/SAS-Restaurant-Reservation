@@ -50,6 +50,7 @@ export class SeatingService {
   updateSeat(seat:Seat): Observable<Seat>{
     return this.http.put<Seat>(this.UPDATE_ENTIRE_SEAT,seat,httpOptions);
   }
+  
   addSeat(seat:Seat) : Observable<Seat>{
     return this.http.post<Seat>(this.ADD_SEAT, seat, httpOptions);
   }
