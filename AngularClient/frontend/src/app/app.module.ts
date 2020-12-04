@@ -23,7 +23,6 @@ import { WelcomeUserComponent } from './components/welcomeuser/welcome-user.comp
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
 import { MenuComponent } from './components/menu/menu.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -38,6 +37,14 @@ import { NotificationBarComponent } from './components/seat-icon/notification-ba
 import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/dialog-add-seat/dialog-add-seat.component';
 import { DialogOrderComponent } from './components/seat-icon/admin-side-bar/dialog-order/dialog-order.component';
 import { DialogAllSeatOrdersComponent } from './components/seat-icon/admin-side-bar/dialog-all-seat-orders/dialog-all-seat-orders.component';
+import { ReservationComponent } from './components/reservation/reservation.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSelectModule} from '@angular/material/select';
+import {MatNativeDateModule} from '@angular/material/core';
+import {ReservationService} from './service/reservation-service';
+import {DatePipe} from '@angular/common';
+import {MatCardModule} from '@angular/material/card';
+
 
 
 @NgModule({
@@ -49,18 +56,16 @@ import { DialogAllSeatOrdersComponent } from './components/seat-icon/admin-side-
     WelcomeUserComponent,
     MenuComponent,
     ErrorComponent,
-    
     AdminSideBarComponent,
-    
     CanvasComponent,
-    
     NotificationBarComponent,
     
     DialogAddSeatComponent,
     
     DialogOrderComponent,
     
-    DialogAllSeatOrdersComponent
+    DialogAllSeatOrdersComponent,
+    ReservationComponent
   ],
   imports: [
     HttpClientModule,
@@ -69,13 +74,13 @@ import { DialogAllSeatOrdersComponent } from './components/seat-icon/admin-side-
     AppRoutingModule,
     AlertModule.forRoot(),
 
-    //Forms Modules
+    // Forms Modules
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     LayoutModule,
 
-    //Angular-Component modules
+    // Angular-Component modules
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -89,11 +94,16 @@ import { DialogAllSeatOrdersComponent } from './components/seat-icon/admin-side-
     MatPaginatorModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
-
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatCardModule
   ],
+
   entryComponents: [DialogAddSeatComponent, DialogOrderComponent, DialogAllSeatOrdersComponent],
-  providers: [AuthenticationService, SeatingService, OrderService ],
+  providers: [AuthenticationService, SeatingService, OrderService,  ReservationService, DatePipe  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

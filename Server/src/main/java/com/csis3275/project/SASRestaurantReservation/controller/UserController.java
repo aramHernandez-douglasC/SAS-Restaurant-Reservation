@@ -86,7 +86,6 @@ public class UserController {
 	@PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> save(@RequestBody User user) throws Throwable {
 		try {
-			repository.findByEmail(user.getEmail());
 			if (repository.findByEmail(user.getEmail()) == null) {
 				User newUser = repository.save(user);
 				System.out.println("New user created!");

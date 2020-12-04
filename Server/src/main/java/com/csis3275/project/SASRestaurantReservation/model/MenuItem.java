@@ -35,7 +35,14 @@ public class MenuItem {
 	@Column(name = "item_price")
 	private String itemPrice;
 	
+
+	@Column(name = "item_description")
+	private String itemDescription;
 	
+	@Column(name = "item_category")
+	private String itemCategory;
+
+
 	public MenuItem(String userName, String firstName) {
 		super();
 		this.itemName = userName;

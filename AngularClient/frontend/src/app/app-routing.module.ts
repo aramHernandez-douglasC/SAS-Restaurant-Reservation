@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import {WelcomeUserComponent} from './components/welcomeuser/welcome-user.component';
 import {MenuComponent} from './components/menu/menu.component';
 import {ErrorComponent} from './components/error/error.component';
+import {ReservationComponent} from './components/reservation/reservation.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   },
   { path: 'menu', component: MenuComponent },
   {path: 'welcome', component: WelcomeUserComponent},
+  {path: 'reserve', component: ReservationComponent},
   {path: '',   redirectTo: '/welcome', pathMatch: 'full'},
   { path: '**', component: ErrorComponent },
 ];
