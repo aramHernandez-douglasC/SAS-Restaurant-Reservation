@@ -42,6 +42,8 @@ export class DialogOrderComponent implements OnInit {
     
   }
 
+  
+
   generateUpdatedOrder(item){
     let array: OrderItem[];
     for (let i = 0; i < this.data.orderItem.length; i++) {
