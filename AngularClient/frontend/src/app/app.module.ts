@@ -1,3 +1,4 @@
+import { OrderService } from './service/order.service';
 import { SeatingService } from './service/seating.service';
 import { AuthenticationService } from './service/authentication.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -86,7 +87,7 @@ import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/di
 
   ],
   entryComponents: [DialogAddSeatComponent],
-  providers: [AuthenticationService, SeatingService, ],
+  providers: [AuthenticationService, SeatingService, OrderService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,7 @@
-import { kill } from 'process';
-import { element } from 'protractor';
+import { OrderService } from './../service/order.service';
+import { OrderItem } from './OrderItem';
+import { Order } from './Order';
+
 import { Seat } from './Seat';
 
 export class Canvas {
@@ -10,16 +12,14 @@ export class Canvas {
   private width: number; //done
   private length: number; //done
   private _RADIUS: number;//done  
- 
+
   private selectedSeat: Seat;//done  
   private elements: Seat[]; //done 
-  
-  seat = {
-    x : 0,
-    y: 0,
-    width: 0
+  allOrders: Order[];
+  seatOrders: Order[];
+  currentOrder: Order;
+  orderItem: OrderItem;
 
-  }
 
   //------gEttERS & SetTerS----------
   getWidth() { return this.width; }
@@ -58,7 +58,8 @@ export class Canvas {
 
   canvasfill() {
     this.canvas.width = this.width;
-    this.canvas.height = this.length;   
+    this.canvas.height = this.length;
+    this.seatOrders;
     this.elements.forEach(s => {
       var color;
       switch (s.cleanStatus) {
@@ -84,6 +85,9 @@ export class Canvas {
         //Click Item
         if (this.clickItem(x, s.xPos, y, s.yPos)) {
           this.selectedSeat = s;
+          this.searchOrder(this.selectedSeat);
+
+
         }
 
       });
@@ -93,35 +97,17 @@ export class Canvas {
     });
   }
 
-  // dragAndDrop(element) {
-  //   const rect = this.canvas.getBoundingClientRect();
-  //   var mousedown: boolean;
-
-  //   this.canvas.addEventListener("mousedown", (event) => {
-  //     const x = event.clientX - rect.left;
-  //     const y = event.clientY - rect.top;     
-  //     if (this.clickItem(x, element.xPos, y, element.yPos)) {
-  //       this.ctx.clearRect(0, 0, this.width, this.length);
-  //       this.canvasfill()
-  //       mousedown = true;
-  //       console.log(mousedown);
-        
-  //     }
-  //   })
-
-  //   this.canvas.addEventListener("mouseup", (event) => {
-  //     const x = event.clientX - rect.left;
-  //     const y = event.clientY - rect.top;
-  //     if (this.clickItem(x, element.xPos, y, element.yPos)) {
-  //       mousedown = false
-  //       console.log(mousedown);
-  //     }
-
-  //   })
-    
+  searchOrder(s: Seat) {
+   this.allOrders.forEach(element => {
+      if(element.seat.id == s.id){
+        this.seatOrders.push(element);
+        console.log(this.seatOrders);
+      }
+     
+   });
+  }
 
 
-  // }
 
   draw(xPos, yPos, color) {
 

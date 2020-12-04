@@ -59,18 +59,23 @@ public class OrderController {
 	/**
 	 * This code will allow the front-end user to update and create 
 	 * an order **/
-	@PostMapping("/order/placeOrder")
-	public void placeOrder(@RequestBody Order order) {		
-		this.updateOrder(order);
+	
+
+	@GetMapping("/order/getAllBySeat")
+	public List<Order> getAllOrdersBySeat(@RequestBody Seat seat) {
+		return this.orderRepo.getOrdersBySeat(seat);
 	}
-
-	@DeleteMapping("/order/order-item/delete")
-	public void deleteSingleOrder(@RequestBody Order order, @RequestParam int itemId) {
-		this.oItRepo.deleteItem(itemId);		
-		
+	
+	@GetMapping("/order/get-active")
+	public Order getActiveOrder(@RequestParam int seatId) {
+		return this.orderRepo.getActiveOrder(seatId);
 	}
-
-
+	
+	@GetMapping("/order/get-all-unpaid-orders")
+	public List<Order> getAllUnpaidOrders(){
+		return null;
+	}
+	
 	@GetMapping("/order/order-item/get-single")
 	public OrderItem findOrder(@RequestParam int id) {
 		return oItRepo.findById(id).get();
@@ -81,6 +86,23 @@ public class OrderController {
 	public List<Order> findAllOrders() {
 		return orderRepo.findAll();
 	}
+	
+	
+	@PostMapping("/order/placeOrder")
+	public void placeOrder(@RequestBody Order order) {		
+		this.updateOrder(order);
+	}
+
+	@PostMapping("/order/order-item/delete")
+	public void deleteSingleOrder(@RequestBody Order order, @RequestParam int itemId) {
+		this.oItRepo.deleteItem(itemId);		
+		
+	}
+	
+	
+
+
+	
 	
 	public void updateOrder(Order order) {
 		this.order = order;
