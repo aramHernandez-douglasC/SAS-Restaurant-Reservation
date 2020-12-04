@@ -1,3 +1,4 @@
+import { OrderItem } from './../../../../model/OrderItem';
 import { Seat } from 'src/app/model/Seat';
 import { OrderService } from './../../../../service/order.service';
 import { AdminSideBarComponent } from './../admin-side-bar.component';
@@ -25,6 +26,32 @@ export class DialogOrderComponent implements OnInit {
 
   ngOnInit(): void {
     
+  }
+
+  deleteItem(item){
+    this.generateUpdatedOrder(item);
+    //this.orderService.deleteOrderItem(this.data,item.id)
+    
+  }
+
+  payBill(){
+    this.orderService.payOrder(this.data).subscribe(data =>{
+      alert("Order Payed");
+      this.dialogRef.close();
+    })
+    
+  }
+
+  generateUpdatedOrder(item){
+    let array: OrderItem[];
+    for (let i = 0; i < this.data.orderItem.length; i++) {
+      if(this.data.orderItem[i] == item){
+        continue;
+      }
+      array.push(this.data.orderItem[i]);
+            
+    }
+    this.data.orderItem = array;
   }
 
 }

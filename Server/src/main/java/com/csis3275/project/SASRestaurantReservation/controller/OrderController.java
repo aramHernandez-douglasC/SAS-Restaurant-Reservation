@@ -61,7 +61,7 @@ public class OrderController {
 	 * an order **/
 	
 
-	@GetMapping("/order/getAllBySeat")
+	@PostMapping("/order/getAllBySeat")
 	public List<Order> getAllOrdersBySeat(@RequestBody Seat seat) {
 		return this.orderRepo.getOrdersBySeat(seat);
 	}
@@ -95,8 +95,17 @@ public class OrderController {
 
 	@PostMapping("/order/order-item/delete")
 	public void deleteSingleOrder(@RequestBody Order order, @RequestParam int itemId) {
-		this.oItRepo.deleteItem(itemId);		
+		this.oItRepo.deleteItem(itemId);
+		this.updateOrder(order);
 		
+	}
+	
+	@PostMapping("/order/pay")
+	public void pay (@RequestBody Order order) {
+		this.order = order;
+		this.order.setOrderStatus("FALSE");
+		this.order.setPayed("TRUE");
+		this.orderRepo.save(this.order);
 	}
 	
 	

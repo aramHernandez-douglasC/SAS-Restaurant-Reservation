@@ -7,12 +7,14 @@
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Subtotal</th>
+                <th></th>
             </tr>
             <tr *ngFor="let item of data.orderItem">
                 <td>{{item.item.itemName}}</td>
                 <td>{{item.item.itemPrice}}</td>
                 <td>{{item.quantity}}</td>
                 <td>${{item.subtotal}}</td>
+                <td><span  id="delete"><i class="far fa-trash-alt"></i></span></td>
             </tr>
 
         </table>
@@ -32,8 +34,8 @@
             </tr>
         </table>
 
-        <button class="btn btn-success"> Pay Bill</button>
-        <button class="btn btn-secondary"> Edit Item</button>
+        <button class="btn btn-success" (click)="payBill()"> Pay Bill</button>
+        
     </div>
 
 </mat-dialog-content>

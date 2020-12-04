@@ -37,6 +37,7 @@ import { CanvasComponent } from './components/seat-icon/canvas/canvas.component'
 import { NotificationBarComponent } from './components/seat-icon/notification-bar/notification-bar.component';
 import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/dialog-add-seat/dialog-add-seat.component';
 import { DialogOrderComponent } from './components/seat-icon/admin-side-bar/dialog-order/dialog-order.component';
+import { DialogAllSeatOrdersComponent } from './components/seat-icon/admin-side-bar/dialog-all-seat-orders/dialog-all-seat-orders.component';
 
 
 @NgModule({
@@ -57,7 +58,9 @@ import { DialogOrderComponent } from './components/seat-icon/admin-side-bar/dial
     
     DialogAddSeatComponent,
     
-    DialogOrderComponent
+    DialogOrderComponent,
+    
+    DialogAllSeatOrdersComponent
   ],
   imports: [
     HttpClientModule,
@@ -89,7 +92,7 @@ import { DialogOrderComponent } from './components/seat-icon/admin-side-bar/dial
     MatSnackBarModule
 
   ],
-  entryComponents: [DialogAddSeatComponent, DialogOrderComponent],
+  entryComponents: [DialogAddSeatComponent, DialogOrderComponent, DialogAllSeatOrdersComponent],
   providers: [AuthenticationService, SeatingService, OrderService ],
   bootstrap: [AppComponent]
 })

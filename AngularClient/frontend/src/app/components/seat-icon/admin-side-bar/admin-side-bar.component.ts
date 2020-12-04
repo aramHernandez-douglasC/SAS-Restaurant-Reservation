@@ -8,6 +8,7 @@ import { SeatingService } from '../../../service/seating.service';
 import { Seat } from '../../../model/Seat';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogOrderComponent } from './dialog-order/dialog-order.component';
+import { DialogAllSeatOrdersComponent } from './dialog-all-seat-orders/dialog-all-seat-orders.component';
 
 @Component({
   selector: 'app-admin-side-bar',
@@ -122,6 +123,13 @@ export class AdminSideBarComponent implements OnInit {
       });
     })
    
+  }
+  orderHistoryOpenDialog(){
+    this.orderService.getAllOrdersBySeat(this.canvas.selectedSeat).subscribe(data=>{
+      this.dialog.open(DialogAllSeatOrdersComponent,{
+        data: data
+      })
+    })
   }
 
   

@@ -17,5 +17,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	@Query(value = "SELECT * FROM Orders WHERE seat_id = :seatId AND order_status = TRUE", nativeQuery = true)
 	public Order getActiveOrder( @Param("seatId") int seatId);
 	
+	
+	
 
 }

@@ -22,7 +22,7 @@ export class OrderService {
   private PLACE_ORDER:string="http://localhost:8080/order/placeOrder";
   private GET_ACTIVE_ORDER = "http://localhost:8080/order/get-active";
   private GET_ALL_ORDERS_BY_SEAT = "http://localhost:8080/order/getAllBySeat";
-
+  private PAY_ORDER = "http://localhost:8080/order/pay";
 
   constructor(private http: HttpClient) { }
 
@@ -59,10 +59,14 @@ export class OrderService {
 
   getAllOrdersBySeat(body : Seat) : Observable<Order[]>{
 
-    return this.http.get<Order[]>(this.GET_ALL_ORDERS_BY_SEAT); 
+    return this.http.post<Order[]>(this.GET_ALL_ORDERS_BY_SEAT, body); 
   }
 
   placeOrder(body : Order){
     return this.http.post(this.PLACE_ORDER, httpOptions);
+  }
+
+  payOrder(body:Order){
+    return this.http.post(this.PAY_ORDER,body);
   }
 }
