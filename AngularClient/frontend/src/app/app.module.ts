@@ -22,7 +22,6 @@ import { WelcomeUserComponent } from './components/welcomeuser/welcome-user.comp
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
 import { MenuComponent } from './components/menu/menu.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -35,6 +34,10 @@ import { AdminSideBarComponent } from './components/seat-icon/admin-side-bar/adm
 import { CanvasComponent } from './components/seat-icon/canvas/canvas.component';
 import { NotificationBarComponent } from './components/seat-icon/notification-bar/notification-bar.component';
 import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/dialog-add-seat/dialog-add-seat.component';
+import { ReservationComponent } from './components/reservation/reservation.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSelectModule} from '@angular/material/select';
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 @NgModule({
@@ -46,14 +49,11 @@ import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/di
     WelcomeUserComponent,
     MenuComponent,
     ErrorComponent,
-    
     AdminSideBarComponent,
-    
     CanvasComponent,
-    
     NotificationBarComponent,
-    
-    DialogAddSeatComponent
+    DialogAddSeatComponent,
+    ReservationComponent
   ],
   imports: [
     HttpClientModule,
@@ -62,13 +62,13 @@ import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/di
     AppRoutingModule,
     AlertModule.forRoot(),
 
-    //Forms Modules
+    // Forms Modules
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     LayoutModule,
 
-    //Angular-Component modules
+    // Angular-Component modules
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -82,8 +82,10 @@ import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/di
     MatPaginatorModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
-
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatNativeDateModule
   ],
   entryComponents: [DialogAddSeatComponent],
   providers: [AuthenticationService, SeatingService, ],

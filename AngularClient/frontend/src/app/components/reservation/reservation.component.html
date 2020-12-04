@@ -1,0 +1,68 @@
+<!--<div class="wrapper">-->
+<!--<form [formGroup]="reservationForm" (ngSubmit)="onReserve()">-->
+<!--  <div class="form-group">-->
+<!--    <label for="customername">Name</label>-->
+<!--    <input type="text" class="form-control" formControlName="customername" id="customername">-->
+<!--  </div>-->
+<!--  <select class="custom-select">-->
+<!--    <option value="" disabled>Choose your city</option>-->
+<!--    <option>New York</option>-->
+<!--  </select>-->
+<!--  <select class="custom-select">-->
+<!--    <option value="" disabled>Choose your city</option>-->
+<!--    <option>New York</option>-->
+<!--  </select>-->
+<!--  <button type="submit" class="btn custom-button">Reserve</button>-->
+<!--</form>-->
+<!--</div>-->
+<div class="wrapper">
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Reservation Form</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form>
+      <p>
+      <mat-form-field>
+        <mat-label>Customer Name</mat-label>
+        <input  matInput  placeholder="Name" [(ngModel)]="customerName"  name="customerName"  required>
+      </mat-form-field>
+      </p>
+      <p>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input  matInput  placeholder="Contact Name" [(ngModel)]="customerEmail"  name="contactEmail"  required>
+      </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Contact Number</mat-label>
+          <input  matInput  placeholder="Contact Name" [(ngModel)]="customerNumber"  name="customerNumber"  required>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input [value]="date.value" matInput [matDatepicker]="myPicker"  placeholder="date">
+      <mat-datepicker-toggle  matSuffix [for]="myPicker"></mat-datepicker-toggle>
+      <mat-datepicker #myPicker></mat-datepicker>
+    </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Select Time</mat-label>
+        <mat-select placeholder="Time" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let time of timeSource" [value]="time">
+            {{time}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </p>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button  mat-raised-button (click)="reserve()"  color="primary">Reserve</button>
+  </mat-card-actions>
+</mat-card>
+</div>

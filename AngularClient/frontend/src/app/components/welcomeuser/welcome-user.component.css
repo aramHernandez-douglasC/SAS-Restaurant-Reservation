@@ -1,6 +1,17 @@
 .jumbotron{
-  background: transparent;
+  background-image: url(src/assets/images/img_background3.jpg);
+  background-size: cover;
+  height: 800px;
   color: #808F85;
+  position: relative;
+}
+
+.container{
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .display-1{
   font-size: 4em;
@@ -8,3 +19,4 @@
 .lead{
   font-size: 2em;
 }
+

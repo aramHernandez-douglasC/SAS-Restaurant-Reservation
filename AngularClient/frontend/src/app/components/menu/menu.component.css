@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #0A0A0A;
 }
 .table-head{
   color: #808F85;
