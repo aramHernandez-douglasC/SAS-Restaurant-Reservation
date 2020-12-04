@@ -1,3 +1,5 @@
+import { OrderService } from './../../../service/order.service';
+import { Canvas } from './../../../model/canvas';
 import { DialogAddSeatComponent } from './dialog-add-seat/dialog-add-seat.component';
 import { CanvasComponent } from '../canvas/canvas.component';
 import { Inject, Component, OnInit, Injectable, Input, Output, EventEmitter } from '@angular/core';
@@ -5,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SeatingService } from '../../../service/seating.service';
 import { Seat } from '../../../model/Seat';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogOrderComponent } from './dialog-order/dialog-order.component';
 
 @Component({
   selector: 'app-admin-side-bar',
@@ -40,7 +43,8 @@ export class AdminSideBarComponent implements OnInit {
   constructor(    
     private service: SeatingService,
     private fb: FormBuilder,
-    private dialog : MatDialog    
+    private dialog : MatDialog, 
+    private orderService : OrderService   
     ) {
     
     
@@ -67,6 +71,7 @@ export class AdminSideBarComponent implements OnInit {
    /***
    * This is the submit method for the ADMIN
    */ 
+  
   
 
   submitAdminSeatUpdate() {
@@ -108,6 +113,15 @@ export class AdminSideBarComponent implements OnInit {
 
   addNew(){
     this.dialog.open(DialogAddSeatComponent);
+  }
+
+  orderOpenDialog(){
+    this.orderService.getActiveOrder(this.canvas.selectedSeat).subscribe(data =>{
+      this.dialog.open(DialogOrderComponent, {
+        data: data
+      });
+    })
+   
   }
 
   

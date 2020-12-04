@@ -59,7 +59,6 @@ export class Canvas {
   canvasfill() {
     this.canvas.width = this.width;
     this.canvas.height = this.length;
-    this.seatOrders;
     this.elements.forEach(s => {
       var color;
       switch (s.cleanStatus) {
@@ -85,7 +84,7 @@ export class Canvas {
         //Click Item
         if (this.clickItem(x, s.xPos, y, s.yPos)) {
           this.selectedSeat = s;
-          this.searchOrder(this.selectedSeat);
+         
 
 
         }
@@ -97,15 +96,7 @@ export class Canvas {
     });
   }
 
-  searchOrder(s: Seat) {
-   this.allOrders.forEach(element => {
-      if(element.seat.id == s.id){
-        this.seatOrders.push(element);
-        console.log(this.seatOrders);
-      }
-     
-   });
-  }
+ 
 
 
 

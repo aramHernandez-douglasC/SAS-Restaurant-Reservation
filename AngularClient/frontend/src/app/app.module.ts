@@ -36,6 +36,7 @@ import { AdminSideBarComponent } from './components/seat-icon/admin-side-bar/adm
 import { CanvasComponent } from './components/seat-icon/canvas/canvas.component';
 import { NotificationBarComponent } from './components/seat-icon/notification-bar/notification-bar.component';
 import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/dialog-add-seat/dialog-add-seat.component';
+import { DialogOrderComponent } from './components/seat-icon/admin-side-bar/dialog-order/dialog-order.component';
 
 
 @NgModule({
@@ -54,7 +55,9 @@ import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/di
     
     NotificationBarComponent,
     
-    DialogAddSeatComponent
+    DialogAddSeatComponent,
+    
+    DialogOrderComponent
   ],
   imports: [
     HttpClientModule,
@@ -86,7 +89,7 @@ import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/di
     MatSnackBarModule
 
   ],
-  entryComponents: [DialogAddSeatComponent],
+  entryComponents: [DialogAddSeatComponent, DialogOrderComponent],
   providers: [AuthenticationService, SeatingService, OrderService ],
   bootstrap: [AppComponent]
 })

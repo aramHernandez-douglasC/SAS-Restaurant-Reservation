@@ -120,14 +120,17 @@ export class SeatIconComponent implements OnInit {
     this.canvas.setRadius(40)
     this.orderService.getAllOrders().subscribe((data) =>{
       this.canvas.allOrders = data;
-      console.log(this.canvas.allOrders);
+      
     })
+
+    
 
     
   }
 
   //---------------UPDATE CANVAS AND ELEMENTS SECTION
 
+ 
 
   /**
    * This method checks for if the user pressed the "update" button 

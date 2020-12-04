@@ -1,0 +1,45 @@
+<h2> Order Info </h2>
+<mat-dialog-content>
+    <div *ngIf="data != null; else noOrder">
+        <table class="table table-striped table-dark">
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+            <tr *ngFor="let item of data.orderItem">
+                <td>{{item.item.itemName}}</td>
+                <td>{{item.item.itemPrice}}</td>
+                <td>{{item.quantity}}</td>
+                <td>${{item.subtotal}}</td>
+            </tr>
+
+        </table>
+        <table class="table table-striped table-dark">
+            <tr class="bg-success">
+                <th>Subtotal:</th>
+                <td></td>
+                <td></td>
+                <td>${{data.subtotal}}</td>
+            </tr>
+
+            <tr class="bg-info">
+                <th>Total:</th>
+                <td></td>
+                <td></td>
+                <td>${{data.total}}</td>
+            </tr>
+        </table>
+
+        <button class="btn btn-success"> Pay Bill</button>
+        <button class="btn btn-secondary"> Edit Item</button>
+    </div>
+
+</mat-dialog-content>
+
+<ng-template #noOrder>
+    <div>
+        <h2>There isn't an order going on right now</h2>
+    </div>
+</ng-template>
