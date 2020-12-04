@@ -1,6 +1,7 @@
+import { OrderService } from './../service/order.service';
+import { OrderItem } from './OrderItem';
+import { Order } from './Order';
 
-import { utils } from 'protractor';
-import { reduce } from 'rxjs/operators';
 import { Seat } from './Seat';
 
 export class Canvas {
@@ -14,11 +15,10 @@ export class Canvas {
 
   private selectedSeat: Seat;//done  
   private elements: Seat[]; //done 
-
-  xMouse: any;
-  yMouse: any;
-
-
+  allOrders: Order[];
+  seatOrders: Order[];
+  currentOrder: Order;
+  orderItem: OrderItem;
 
 
   //------gEttERS & SetTerS----------
@@ -59,102 +59,47 @@ export class Canvas {
   canvasfill() {
     this.canvas.width = this.width;
     this.canvas.height = this.length;
-     this.elements.forEach(s => {
-       var color;
-       switch (s.cleanStatus) {
-         case "clean":
-           color = "#0C755B";
-           break;
-     case "dirty":
-           color = "#F3AF42";
-           break;
+
+    this.elements.forEach(s => {
+      var color;
+      switch (s.cleanStatus) {
+        case "clean":
+          color = "#0C755B";
+          break;
+
+        case "dirty":
+          color = "#F3AF42";
+          break;
 
 
-         case "occupied":
-           color = "#F2293A";
-           break;
-
-         default:
-           color = "#FFFFFF"
-           break;
-       }
-
-       //Check why is drawing items weird
-
-       this.draw(s.xPos, s.yPos, color);
-       const rect = this.canvas.getBoundingClientRect();
-
-       this.canvas.addEventListener("click", (event) => {
-         const x = event.clientX - rect.left;
-         const y = event.clientY - rect.top;
-
-         //console.log("x: " +  x + " y: " + y );
-         //Click Item
-         if (this.clickItem(x, s.xPos, y, s.yPos)) {
-           this.selectedSeat = s;
-         }
-       });
-
-
-
-     });
-
-    // const seat = {
-    //   xPos: 100,
-    //   yPos: 100,
-    //   color: "red"
-    // }
-
-
-    // this.draw(seat.xPos, seat.yPos, seat.color);
-    // this.canvas.addEventListener("mousedown", event => {
-    //   this.mouseDown(seat, event);
-    //   this.mouseMove(true);
-
-    // });
-    // this.canvas.addEventListener("mouseup", event => {
-    //   this.mouseUp();
-    //   this.mouseMove(false);
-
-    // });
-
-  }
-
-  mouseDown(element, event) {
-    if (this.clickItem(event.clientX, element.xPos, event.clientY,
-      element.yPos)) {
-      this.canvas.style.backgroundColor = "#4b6a94";
-
-
-    }
-
-  }
-
-
-  mouseUp() {
-    this.canvas.style.backgroundColor = "#1f2d41";
-
-  }
-
-  mouseMove(move: boolean) {
-
-    let x;
-    let y;
-    this.canvas.addEventListener("mousemove", event => {
-      if (move) {
-        this.ctx.clearRect(0, 0, this.width, this.length);
-        x = event.clientX;
-        y = event.clientY;
-        this.draw(x, y, "white");
+        case "occupied":
+          color = "#F2293A";
+          break;
       }
-      else{
-        this.draw(x,y,"black");
-      }
+      this.draw(s.xPos, s.yPos, color);
+      const rect = this.canvas.getBoundingClientRect();
 
+      this.canvas.addEventListener("click", (event) => {
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        //Click Item
+        if (this.clickItem(x, s.xPos, y, s.yPos)) {
+          this.selectedSeat = s;
+
+
+
+        }
+
+
+
+      })
     })
 
-
   }
+
+
+
+  
   draw(xPos, yPos, color) {
 
 

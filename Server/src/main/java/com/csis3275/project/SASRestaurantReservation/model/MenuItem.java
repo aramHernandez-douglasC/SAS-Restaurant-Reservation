@@ -1,9 +1,14 @@
 package com.csis3275.project.SASRestaurantReservation.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -29,7 +34,8 @@ public class MenuItem {
 
 	@Column(name = "item_price")
 	private String itemPrice;
-
+	
+	
 	public MenuItem(String userName, String firstName) {
 		super();
 		this.itemName = userName;

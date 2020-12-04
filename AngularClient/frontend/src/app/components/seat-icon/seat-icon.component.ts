@@ -1,3 +1,6 @@
+import { OrderItem } from './../../model/OrderItem';
+import { Order } from './../../model/Order';
+import { OrderService } from './../../service/order.service';
 import { Canvas } from './../../model/canvas';
 import { CanvasComponent } from './canvas/canvas.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -44,9 +47,12 @@ export class SeatIconComponent implements OnInit {
   length: number = 500;  
   seats: Seat[];
   selectedSeat: Seat;
+  
+
   //Flags
   updateRequest: boolean;
   selected: boolean;
+  
 
 
 
@@ -55,7 +61,7 @@ export class SeatIconComponent implements OnInit {
   button: HTMLButtonElement; 
   updateStatusForm: FormGroup;
   canvas : Canvas;
-  
+  order: Order[];
 
   //------Seat Variables
   updatedSeat: Seat;
@@ -86,12 +92,15 @@ export class SeatIconComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private service: SeatingService,
     private fb: FormBuilder, // employee
+    private orderService: OrderService
     ) 
     {
     this.canvas = new Canvas();    
     this.seats =  this._ac.snapshot.data.seat    
     this.role = this._ac.snapshot.paramMap.get('role');
     this.name = this._ac.snapshot.paramMap.get('name');
+   
+    
     
     if (this.role == "Admin"){
       this.isAdmin = true;
@@ -104,25 +113,24 @@ export class SeatIconComponent implements OnInit {
    * here is where you build any element that needs to be initialized whith the component
    */
   ngOnInit(): void {
-    console.log(this.seats);
+    //console.log(this.seats);
     this.updateStatusForm = this.fb.group({// employee
       status: null,
     });     
     this.canvas.setRadius(40)
-  }
+    this.orderService.getAllOrders().subscribe((data) =>{
+      this.canvas.allOrders = data;
+      
+    })
 
-  setSelectedSeat(seat:Seat){
-    this.selectedSeat = seat;
-  }
-  setUpdateRequest(req){
-    this.updateRequest = req;
+    
 
+    
   }
-
- 
 
   //---------------UPDATE CANVAS AND ELEMENTS SECTION
 
+ 
 
   /**
    * This method checks for if the user pressed the "update" button 

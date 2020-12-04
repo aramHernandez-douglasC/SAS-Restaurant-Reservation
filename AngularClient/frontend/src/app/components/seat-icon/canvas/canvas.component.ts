@@ -1,3 +1,4 @@
+import { OrderService } from './../../../service/order.service';
 import { Canvas } from './../../../model/canvas';
 import { ActivatedRoute } from '@angular/router';
 import { Seat } from '../../../model/Seat';
@@ -38,9 +39,12 @@ export class CanvasComponent implements OnInit, AfterViewInit{
     this.canvas.setLength(this.length);  
     
     this.canvas.canvasfill();
+    
+    console.log(this.canvas.currentOrder);
     window.addEventListener('resize', this.canvas.respondCanvas);
-  }  
-
+  } 
+  
+ 
   
 
  

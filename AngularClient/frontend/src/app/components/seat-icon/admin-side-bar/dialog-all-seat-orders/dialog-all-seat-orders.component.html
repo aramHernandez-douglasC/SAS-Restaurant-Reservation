@@ -1,0 +1,23 @@
+<h2>Orders History</h2>
+
+<table class="table table-hover">
+    <tr>
+        <th>Order Id</th>
+        <th>Is Active</th>
+        <th>Is Payed</th>
+        <th>Subtotal</th>
+        <th>Total</th>
+    </tr>
+    <tr *ngFor = "let order of data">
+        <td>{{order.id}}</td>
+        <td>{{order.orderStatus}}</td>
+        <td>{{order.payed}}</td>
+        <td>{{order.subtotal}}</td>
+        <td>{{order.total}}</td>
+        
+        
+        
+    </tr>
+</table>
+
+

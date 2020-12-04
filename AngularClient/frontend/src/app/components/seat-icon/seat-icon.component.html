@@ -39,24 +39,24 @@
 
 <!--Employee Nav-->
 <ng-template #EmployeeBlock>
-  <div *ngIf="selectedSeat != null; else noSelectedBlock">
+  <div *ngIf="canvas.selectedSeat != null; else noSelectedBlock">
     <h2>Seat Selected</h2>
     <label>Seat Number:</label>
-    <p> {{selectedSeat.id}} </p>
+    <p> {{canvas.selectedSeat.id}} </p>
     <br>
 
     <label>Capacity:</label>
-    <p> {{selectedSeat.capacity}} </p>
+    <p> {{canvas.selectedSeat.capacity}} </p>
     <br>
 
     <div>
       <label>Current status:</label>
-      <p *ngIf="!updateRequest ; else updateForm"> {{selectedSeat.cleanStatus}} </p>
+      <p *ngIf="!updateRequest ; else updateForm"> {{canvas.selectedSeat.cleanStatus}} </p>
       <br>
     </div>
 
     <label>Server:</label>
-    <p> {{selectedSeat.serverId}} </p>
+    <p> {{canvas.selectedSeat.serverId}} </p>
     <br>
 
 

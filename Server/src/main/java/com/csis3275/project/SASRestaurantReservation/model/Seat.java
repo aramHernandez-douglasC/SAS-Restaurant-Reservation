@@ -1,13 +1,19 @@
 package com.csis3275.project.SASRestaurantReservation.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
 
 @Component
 @Entity
@@ -35,6 +41,30 @@ public class Seat {
 	@ManyToOne
 	private User serverId;
 	
+
+	public Seat() {
+		super();
+	}
+
+	
+
+	
+
+
+	public Seat(int id, int xPos, int yPos, int capacity, String cleanStatus, User serverId) {
+		super();
+		this.id = id;
+		this.xPos = xPos;
+		this.yPos = yPos;
+		this.capacity = capacity;
+		this.cleanStatus = cleanStatus;
+		this.serverId = serverId;
+	}
+
+
+
+
+
 
 	public int getId() {
 		return id;

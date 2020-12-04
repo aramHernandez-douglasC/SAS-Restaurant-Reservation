@@ -1,3 +1,4 @@
+import { OrderService } from './service/order.service';
 import { SeatingService } from './service/seating.service';
 import { AuthenticationService } from './service/authentication.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -35,6 +36,8 @@ import { AdminSideBarComponent } from './components/seat-icon/admin-side-bar/adm
 import { CanvasComponent } from './components/seat-icon/canvas/canvas.component';
 import { NotificationBarComponent } from './components/seat-icon/notification-bar/notification-bar.component';
 import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/dialog-add-seat/dialog-add-seat.component';
+import { DialogOrderComponent } from './components/seat-icon/admin-side-bar/dialog-order/dialog-order.component';
+import { DialogAllSeatOrdersComponent } from './components/seat-icon/admin-side-bar/dialog-all-seat-orders/dialog-all-seat-orders.component';
 
 
 @NgModule({
@@ -53,7 +56,11 @@ import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/di
     
     NotificationBarComponent,
     
-    DialogAddSeatComponent
+    DialogAddSeatComponent,
+    
+    DialogOrderComponent,
+    
+    DialogAllSeatOrdersComponent
   ],
   imports: [
     HttpClientModule,
@@ -85,8 +92,8 @@ import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/di
     MatSnackBarModule
 
   ],
-  entryComponents: [DialogAddSeatComponent],
-  providers: [AuthenticationService, SeatingService, ],
+  entryComponents: [DialogAddSeatComponent, DialogOrderComponent, DialogAllSeatOrdersComponent],
+  providers: [AuthenticationService, SeatingService, OrderService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -70,10 +70,9 @@
                Order
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <p>Display current order details</p>
-        
-        <br>
-        <button>Past orders</button>
+        <div *ngIf="canvas.selectedSeat != null; then orderDisplay; else noSelectedBlock ">
+
+        </div>
         <!--Insert Dialog box-->
 
     </mat-expansion-panel>
@@ -106,4 +105,9 @@
 </div>
 <ng-template #noSelectedBlock>
     <h3> Please select a seat</h3>
+</ng-template>
+
+<ng-template #orderDisplay>    
+    <button id="view-order-btn" class= "btn btn-outline-primary btn-sm" (click) = orderOpenDialog()>Current Seat Order</button>
+    <button id = "all-order-btn" class = "btn btn-outline-secondary btn-sm" (click)= orderHistoryOpenDialog()>All Seat Orders</button>    
 </ng-template>
