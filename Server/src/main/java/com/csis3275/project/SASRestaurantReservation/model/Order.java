@@ -28,10 +28,10 @@ public class Order {
 	 * This will be true if order is currently opened or 
 	 * false if it's closed 
 	 * */	
-	@Column(name= "orderStatus")
+	@Column(name= "order_status")
 	private String orderStatus ;
 	
-	@Column(name="isPayed")
+	@Column(name="is_payed")
 	private String payed ;
 	
 	@Column(name = "subtotal")
