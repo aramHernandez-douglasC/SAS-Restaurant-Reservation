@@ -41,7 +41,7 @@ public class Reservation {
 	private String reservationTime;
 	
 	@Column(name = "numberOfPeople")
-	private String numOfPeople;
+	private int numOfPeople;
 	
 	public Reservation() {};
 	
@@ -65,15 +65,18 @@ public class Reservation {
 		this.reservationTime = time;
 	}
 	
+
 	public void setReservationDate(String date) {
 		this.reservationDate = date;
 	}
 	
-	public String getNumOfPeople() {
+	
+	public int getNumOfPeople() {
+
 		return numOfPeople;
 	}
 
-	public void setNumOfPeople(String number) {
+	public void setNumOfPeople(int number) {
 		this.numOfPeople = number;
 	}
 	public String getCustomerEmail() {
@@ -95,4 +98,18 @@ public class Reservation {
 	public Integer getId() {
 		return id;
 	}
+
+	public boolean needBigTable(int numberOfPeople) {
+		if(numberOfPeople < 5) {
+			return false;
+		}else
+		{
+			return true;
+		}
+		
+		
+	}
+	
+	
+
 }
