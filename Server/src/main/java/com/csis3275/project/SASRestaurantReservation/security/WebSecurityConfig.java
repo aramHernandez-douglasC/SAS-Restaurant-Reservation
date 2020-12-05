@@ -61,6 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/items").permitAll()
                 .antMatchers("/reservation/new").permitAll()
                 .antMatchers("/reservations/timings").permitAll()
+                .antMatchers("/order/**").permitAll()
+                
                 .antMatchers("/h2").permitAll()
                 .anyRequest().authenticated()
                 .and()

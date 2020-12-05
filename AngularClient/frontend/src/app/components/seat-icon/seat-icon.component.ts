@@ -100,9 +100,9 @@ export class SeatIconComponent implements OnInit {
     this.role = this._ac.snapshot.paramMap.get('role');
     this.name = this._ac.snapshot.paramMap.get('name');
    
+    console.log(this.role);
     
-    
-    if (this.role == "Admin"){
+    if (this.role == "admin"){
       this.isAdmin = true;
     }
 
