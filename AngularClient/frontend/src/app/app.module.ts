@@ -33,6 +33,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { ErrorComponent } from './components/error/error.component';
 import { AdminSideBarComponent } from './components/seat-icon/admin-side-bar/admin-side-bar.component';
 import { CanvasComponent } from './components/seat-icon/canvas/canvas.component';
+import {httpInterceptorProviders} from './auth/authinterceptor';
+import { AuthcontainerComponent } from './components/authcontainer/authcontainer.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ReservationService } from './service/reservation-service';
 import { NotificationBarComponent } from './components/seat-icon/notification-bar/notification-bar.component';
 import { DialogAddSeatComponent } from './components/seat-icon/admin-side-bar/dialog-add-seat/dialog-add-seat.component';
 import { DialogOrderComponent } from './components/seat-icon/admin-side-bar/dialog-order/dialog-order.component';
@@ -41,10 +45,8 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
 import {MatNativeDateModule} from '@angular/material/core';
-import {ReservationService} from './service/reservation-service';
 import {DatePipe} from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
-
 
 
 @NgModule({
@@ -58,6 +60,8 @@ import {MatCardModule} from '@angular/material/card';
     ErrorComponent,
     AdminSideBarComponent,
     CanvasComponent,
+    AuthcontainerComponent,
+    RegisterComponent,
     NotificationBarComponent,
     
     DialogAddSeatComponent,
@@ -73,14 +77,10 @@ import {MatCardModule} from '@angular/material/card';
     NgxWebstorageModule.forRoot(),
     AppRoutingModule,
     AlertModule.forRoot(),
-
-    // Forms Modules
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     LayoutModule,
-
-    // Angular-Component modules
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -102,7 +102,8 @@ import {MatCardModule} from '@angular/material/card';
   ],
 
   entryComponents: [DialogAddSeatComponent, DialogOrderComponent, DialogAllSeatOrdersComponent],
-  providers: [AuthenticationService, SeatingService, OrderService,  ReservationService, DatePipe  ],
+  providers: [AuthenticationService, SeatingService, OrderService, httpInterceptorProviders, ReservationService, DatePipe  ],
+
 
   bootstrap: [AppComponent]
 })

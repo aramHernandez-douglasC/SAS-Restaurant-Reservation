@@ -1,5 +1,5 @@
 .jumbotron{
-  background-image: url(src/assets/images/img_background3.jpg);
+  background-image: url("src/assets/images/img_background3.jpg");
   background-size: cover;
   height: 800px;
   color: #808F85;

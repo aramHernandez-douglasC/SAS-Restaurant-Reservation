@@ -1,4 +1,4 @@
-export class Reservation{
+export class Reservation {
   id: number;
   customerName: string;
   customerEmail: string;

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthenticationService} from '../../service/authentication.service';
 import {User} from '../../model/User';
 import {Router} from '@angular/router';
+import {AuthLoginInfo} from '../../auth/login-info';
+import {AuthService} from '../../auth/auth.service';
+import {TokenStorageService} from '../../auth/token-storage.service';
 
 
 @Component({
@@ -12,113 +14,65 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   submitted: boolean;
-  registered: boolean;
   reset: boolean;
   loginForm: FormGroup;
-  registerForm: FormGroup;
-  resetForm: FormGroup;
-  isAdmin: boolean;
   user = new User();
-  passwordMatch = false;
+  private loginInfo: AuthLoginInfo;
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
+
   constructor(
     private formBuilder: FormBuilder,
-    private service: AuthenticationService,
-    private router: Router
-  ) { }
+    private service: AuthService,
+    private router: Router,
+    private tokenStorage: TokenStorageService
+  ) {
+  }
 
   ngOnInit(): void {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.roles = this.tokenStorage.getAuthorities();
+    }
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required],
-    });
-    this.registerForm = this.formBuilder.group({
-      username: '',
-      firstname: '',
-      lastname: '',
-      email: ['', Validators.required],
-      password : ['', Validators.required],
-    });
-    this.resetForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
-    }, {
-      validator: MustMatch('password', 'confirmPassword')
     });
   }
+
   onSubmit(): void {
     this.submitted = true;
     if (this.loginForm.invalid) {
       return;
     }
-    const body = {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password,
-    };
-    this.service.authenticate(body).subscribe(data => {
-      console.log(data);
-      this.user = data;
-      this.router.navigate(['/seat', this.user.type, this.user.userName]);
-    });
-
-    // this.storage.clear('token');
-    // this.storage.store('token', this.userRole);
-    // this.data = this.storage.retrieve('token');
-    // console.log(this.data);
-
-  }
-
-  onRegister(): void{
-    this.registered = true;
-
-    if (this.registerForm.invalid) {
-      return;
-    }
-    this.user.email = this.registerForm.value.email;
-    this.user.firstName = this.registerForm.value.firstname;
-    this.user.lastName = this.registerForm.value.lastname;
-    this.user.userName = this.registerForm.value.username;
-    this.user.password = this.registerForm.value.password;
-    this.user.type = this.isAdmin ? 'Admin' : 'Employee';
-
-    this.service.register(this.user)
-      .subscribe((response) => {
-        console.log(response);
+    this.loginInfo = new AuthLoginInfo(
+      this.loginForm.value.username,
+      this.loginForm.value.password);
+    this.service.attemptAuth(this.loginInfo).subscribe(data => {
+        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUserName(data.username);
+        this.tokenStorage.saveAuthorities(data.authorities);
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.roles = this.tokenStorage.getAuthorities();
+        console.log(data);
+        console.log(this.tokenStorage.getToken());
+        console.log(this.tokenStorage.getUserName());
+        console.log(this.tokenStorage.getAuthorities());
+        // this.user = data;
+        this.router.navigate(['/seat', this.tokenStorage.getAuthorities()[0], this.tokenStorage.getUserName()]);
+      },
+      error => {
+        console.log(error);
+        this.errorMessage = error.error.errorMessage;
+        this.isLoginFailed = true;
       });
-    this.router.navigate(['/login']);
-  }
-    // console.log(body);
-
-  onReset(): void{
-    this.reset = true;
-
-    if (this.resetForm.invalid) {
-      this.passwordMatch = true;
-      return;
-    }
-    const body = {
-      email: this.resetForm.value.email,
-      password: this.resetForm.value.password,
-    };
-
-    this.service.reset(body)
-      .subscribe((response) => {
-        console.log(response);
-      });
-    this.router.navigate(['/login']);
-  }
-  passwordConfirming(): boolean {
-    if (this.resetForm.value.password === this.resetForm.value.confirm_password) {
-      console.log('Reached here');
-      return true;
-    }
-      else{
-        return false;
-    }
   }
 }
-export function MustMatch(controlName: string, matchingControlName: string): any
-{
+
+export function MustMatch(controlName: string, matchingControlName: string): any {
   return (formGroup: FormGroup) => {
     const control = formGroup.controls[controlName];
     const matchingControl = formGroup.controls[matchingControlName];
@@ -130,7 +84,7 @@ export function MustMatch(controlName: string, matchingControlName: string): any
 
     // set error on matchingControl if validation fails
     if (control.value !== matchingControl.value) {
-      matchingControl.setErrors({ mustMatch: true });
+      matchingControl.setErrors({mustMatch: true});
     } else {
       matchingControl.setErrors(null);
     }
