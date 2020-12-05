@@ -15,7 +15,7 @@ class ReservationModelTest {
 	
 	
 	Reservation testRes = new Reservation();
-	Date reservationTime = new Date(2020/10/8);
+	String reservationTime = "2020/10/8";
 
 	
 	@BeforeEach
