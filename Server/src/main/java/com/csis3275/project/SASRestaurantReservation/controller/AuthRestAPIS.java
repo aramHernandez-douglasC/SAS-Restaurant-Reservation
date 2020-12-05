@@ -1,6 +1,7 @@
 package com.csis3275.project.SASRestaurantReservation.controller;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,7 @@ public class AuthRestAPIS {
  
     return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
   }
+  
  
   @PostMapping("/signup")
   public ResponseEntity registerUser(@RequestBody SignUpForm signUpRequest) {
@@ -85,19 +87,19 @@ public class AuthRestAPIS {
     strRoles.forEach(role -> {
       switch (role) {
       case "admin":
-        Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
+        Role adminRole = roleRepository.findByName(RoleName.admin)
             .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
         roles.add(adminRole);
  
         break;
       case "pm":
-        Role pmRole = roleRepository.findByName(RoleName.ROLE_PM)
+        Role pmRole = roleRepository.findByName(RoleName.employee)
             .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
         roles.add(pmRole);
  
         break;
       default:
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+        Role userRole = roleRepository.findByName(RoleName.customer)
             .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
         roles.add(userRole);
       }

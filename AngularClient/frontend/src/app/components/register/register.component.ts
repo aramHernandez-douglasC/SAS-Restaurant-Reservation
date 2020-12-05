@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../model/User';
 import {AuthenticationService} from '../../service/authentication.service';
 import {Router} from '@angular/router';
+import {SignUpInfo} from '../../auth/signup-info';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -13,44 +15,57 @@ export class RegisterComponent implements OnInit {
   submitted: boolean;
   registered: boolean;
   reset: boolean;
-  loginForm: FormGroup;
   registerForm: FormGroup;
-  resetForm: FormGroup;
   isAdmin: boolean;
   user = new User();
-  passwordMatch = false;
+  signUpInfo: SignUpInfo;
+  isSignedUp = false;
+  isSignUpFailed = false;
+  errorMessage = '';
+  role = [];
+
   constructor(
     private formBuilder: FormBuilder,
-    private service: AuthenticationService,
+    private service: AuthService,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       username: '',
-      firstname: '',
-      lastname: '',
+      name: '',
       email: ['', Validators.required],
-      password : ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
-  onRegister(): void{
+
+  onRegister(): void {
     this.registered = true;
 
     if (this.registerForm.invalid) {
       return;
     }
-    this.user.email = this.registerForm.value.email;
-    this.user.firstName = this.registerForm.value.firstname;
-    this.user.lastName = this.registerForm.value.lastname;
-    this.user.userName = this.registerForm.value.username;
-    this.user.password = this.registerForm.value.password;
-    this.user.type = this.isAdmin ? 'Admin' : 'Employee';
+    this.role = this.isAdmin ? ['admin'] : ['employee'];
+    this.signUpInfo = new SignUpInfo(
+      this.registerForm.value.name,
+      this.registerForm.value.username,
+      this.registerForm.value.email,
+      this.registerForm.value.password,
+      this.role
+    );
 
-    this.service.register(this.user)
+    this.service.signUp(this.signUpInfo)
       .subscribe((response) => {
-        console.log(response);
-      });
-    this.router.navigate(['/login']);
+          console.log(response);
+          this.isSignedUp = true;
+          this.isSignUpFailed = false;
+        },
+        error => {
+          console.log(error);
+          this.errorMessage = error.error.message;
+          this.isSignUpFailed = true;
+        });
+    this.router.navigate(['/authenticate']);
   }
 }

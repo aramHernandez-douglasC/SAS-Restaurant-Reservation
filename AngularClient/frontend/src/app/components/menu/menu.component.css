@@ -7,23 +7,27 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-.menu{
+
+.menu {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.table-head{
+
+.table-head {
   color: #0A0A0A;
   text-align: center;
   font-size: 2em;
 }
-table{
+
+table {
   background: transparent;
   border-spacing: 10px;
   border-collapse: separate;
   display: table;
   width: 100%;
 }
+
 .mat-cell {
   color: #0A0A0A;
   text-align: center;
@@ -32,13 +36,14 @@ table{
   border-color: transparent;
 }
 
-.th-center{
+.th-center {
   text-align: center;
   color: #0A0A0A;
   text-align: center;
   font-size: 1.5em;
   font-weight: bolder;
 }
-mat-card{
+
+mat-card {
   width: 100%;
 }

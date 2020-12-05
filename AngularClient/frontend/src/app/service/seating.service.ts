@@ -1,8 +1,8 @@
-import { Seat } from './../model/Seat';
+import {Seat} from './../model/Seat';
 
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 
 
 const httpOptions = {
@@ -10,7 +10,6 @@ const httpOptions = {
     'Content-Type': 'application/json'
   })
 };
-
 
 
 @Injectable({
@@ -25,16 +24,18 @@ export class SeatingService {
   UPDATE_ENTIRE_SEAT = "http://localhost:8080/updateSeat";
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  requestAllSeats(): Observable<Seat[]>{
+  requestAllSeats(): Observable<Seat[]> {
     return this.http.get<Seat[]>(this.GET_ALL_SEATS);
 
   }
-  updateSeatbyId(body): Observable<any>{
-    let params : HttpParams = new HttpParams()
-    .set("seatId", body.seatId)
-    .set("status", body.status);
+
+  updateSeatbyId(body): Observable<any> {
+    let params: HttpParams = new HttpParams()
+      .set("seatId", body.seatId)
+      .set("status", body.status);
 
     const options = {
       headers: new HttpHeaders({
@@ -42,16 +43,16 @@ export class SeatingService {
       }),
       params
     };
-    
+
 
     return this.http.put(this.UPDATE_SEAT_STATUS, body, options);
   }
 
-  updateSeat(seat:Seat): Observable<Seat>{
-    return this.http.put<Seat>(this.UPDATE_ENTIRE_SEAT,seat,httpOptions);
+  updateSeat(seat: Seat): Observable<Seat> {
+    return this.http.put<Seat>(this.UPDATE_ENTIRE_SEAT, seat, httpOptions);
   }
-  
-  addSeat(seat:Seat) : Observable<Seat>{
+
+  addSeat(seat: Seat): Observable<Seat> {
     return this.http.post<Seat>(this.ADD_SEAT, seat, httpOptions);
   }
 }

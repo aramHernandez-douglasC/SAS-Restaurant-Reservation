@@ -59,6 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/items").permitAll()
+                .antMatchers("/reservation/new").permitAll()
+                .antMatchers("/reservations/timings").permitAll()
                 .antMatchers("/h2").permitAll()
                 .anyRequest().authenticated()
                 .and()

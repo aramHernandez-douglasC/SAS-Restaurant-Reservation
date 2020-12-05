@@ -1,4 +1,4 @@
-package tests.csis3275.project.SASRestaurantReservation.model;
+/*package tests.csis3275.project.SASRestaurantReservation.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,7 +9,7 @@ import com.csis3275.project.SASRestaurantReservation.model.Seat;
 import com.csis3275.project.SASRestaurantReservation.model.User;
 import com.csis3275.project.SASRestaurantReservation.controller.UserController;
 
-class ModelTest {
+class ModelTest {*/
 
 	
 //	Seat seatClean = new Seat();	
@@ -61,4 +61,4 @@ class ModelTest {
 //		user.setType("Employee");
 //		assertFalse(user.checkIfAdmin());
 //	}
-}
+//}
