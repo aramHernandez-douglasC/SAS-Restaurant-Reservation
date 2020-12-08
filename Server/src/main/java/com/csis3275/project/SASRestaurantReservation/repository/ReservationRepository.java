@@ -1,12 +1,10 @@
 package com.csis3275.project.SASRestaurantReservation.repository;
 
 import java.util.List;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import com.csis3275.project.SASRestaurantReservation.model.Reservation;
 import com.csis3275.project.SASRestaurantReservation.model.User;
 
@@ -18,8 +16,11 @@ import com.csis3275.project.SASRestaurantReservation.model.User;
  */
 @Repository
 public interface ReservationRepository extends CrudRepository<Reservation, Integer> {
-	public User findByCustomerEmail(String customerEmail);
+	public Reservation findByCustomerEmail(String customerEmail);
+<<<<<<< HEAD
 	
+=======
+>>>>>>> BlackboxTest_sjh_95
 	 @Query(value = "SELECT reservation_time FROM RESERVATIONS WHERE reservation_date = :reservationDate", nativeQuery = true)
 	    List<String> findReservationsByDate(@Param("reservationDate") String reservationDate);
 }
