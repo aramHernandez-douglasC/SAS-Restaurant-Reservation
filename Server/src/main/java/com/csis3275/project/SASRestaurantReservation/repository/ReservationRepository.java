@@ -17,7 +17,10 @@ import com.csis3275.project.SASRestaurantReservation.model.User;
 @Repository
 public interface ReservationRepository extends CrudRepository<Reservation, Integer> {
 	public Reservation findByCustomerEmail(String customerEmail);
+<<<<<<< HEAD
 	
+=======
+>>>>>>> BlackboxTest_sjh_95
 	 @Query(value = "SELECT reservation_time FROM RESERVATIONS WHERE reservation_date = :reservationDate", nativeQuery = true)
 	    List<String> findReservationsByDate(@Param("reservationDate") String reservationDate);
 }
